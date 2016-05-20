@@ -14,9 +14,12 @@ import com.qdf.db.SessionFactory;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 import com.qdf.util.JsonUtil;
+import com.test.interceptor.ClassInterceptor;
+import com.test.interceptor.ClassInterceptor2;
 import com.test.interceptor.MyInterceptor;
 
 @Action(url = "/user")
+@Interceptor({ClassInterceptor.class,ClassInterceptor2.class})
 public class UserAction implements QdfAction {
 
 	@Override
@@ -25,7 +28,7 @@ public class UserAction implements QdfAction {
 		System.out.println("user execute");
 	}
 	
-	@Interceptor(MyInterceptor.class)
+	@Interceptor({MyInterceptor.class,MyInterceptor.class})
 	public void hello(IRequest request, IResponse response) {
 		System.out.println("hello");
 	}

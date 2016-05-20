@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.common.io.ByteStreams;
+import com.qdf.model.Action;
 import com.qdf.servlet.IResponse;
 import com.qdf.servlet.impl.HttpServletRequestWrapper;
 import com.qdf.servlet.impl.IResponseImpl;
@@ -45,21 +46,28 @@ public class QdfFilter implements Filter{
 		
 		String url = req.getRequestURI().substring(req.getContextPath().length());
 		
+		
 		if(null != Qdf.me().getConfig().getIgnoreUrl() && ( "/".equals(url) || url.matches(Qdf.me().getConfig().getIgnoreUrl()))) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 		
-		String []urlItem = UrlUtil.parseUrl(url);
-		Class<?> action = Qdf.me().getRoute().getRoute(urlItem[0]);
+		//如果找不到方法,就调用默认方法execute
+		Action action = null;
+		if(Qdf.me().getRoute().contain(url)) {
+			action = Qdf.me().getRoute().getRoute(url);
+		} else {
+			String []urlItem = UrlUtil.parseUrl(url);
+			url = urlItem[0] + "/execute";
+			action = Qdf.me().getRoute().getRoute(url);
+		}
 		
 		HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(req);
 		IResponse iResponse = new IResponseImpl(rep);
 		
-		
 		if(null != action) {
 			try {
-				Qdf.me().getActionHandle().handle(action, urlItem[1], requestWrapper, iResponse);
+				Qdf.me().getActionHandle().handle(action, url, requestWrapper, iResponse);
 			
 				// 根据响应数据类型进行响应处理。
 				IResponse.Type resType = iResponse.getDataType();
@@ -98,7 +106,7 @@ public class QdfFilter implements Filter{
 				throw new RuntimeException(e);
 			}
 		} else {
-			throw new RuntimeException("找不到对应的Action:".concat(urlItem[0]));
+			throw new RuntimeException("找不到对应的Action:".concat(url));
 		}
 	}
 

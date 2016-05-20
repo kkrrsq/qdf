@@ -1,13 +1,18 @@
 package com.qdf.core;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
-import com.qdf.annotation.Action;
+import com.qdf.interceptor.InterceptorManage;
+import com.qdf.interceptor.QdfInterceptor;
+import com.qdf.model.Action;
+import com.qdf.servlet.IRequest;
+import com.qdf.servlet.IResponse;
 import com.qdf.util.JsonUtil;
 
 /**
@@ -17,16 +22,20 @@ import com.qdf.util.JsonUtil;
  */
 public class Route {
 
-	private Map<String, Class<?>> routeMap = new HashMap<>();
+	private Map<String, Action> routeMap = new HashMap<>();
 	
 	private String actionPackage;
 	
-	public void setRoute(String url,Class<?> action) {
+	public void setRoute(String url,Action action) {
 		routeMap.put(url, action);
 	}
 	
-	public Class<?> getRoute(String url) {
+	public Action getRoute(String url) {
 		return routeMap.get(url);
+	}
+	
+	public boolean contain(String url) {
+		return this.routeMap.containsKey(url);
 	}
 	
 	/**
@@ -39,14 +48,27 @@ public class Route {
 				Class<?> clazz = classInfo.load();
 				if(QdfAction.class.isAssignableFrom(clazz)) {
 					//符合条件的Action
-					Action action = clazz.getAnnotation(Action.class);
+					com.qdf.annotation.Action action = clazz.getAnnotation(com.qdf.annotation.Action.class);
 					if(null != action) {
-						String url = action.url();
-						routeMap.put(url, clazz);
+						String baseurl = action.url();
+						Method []methods = clazz.getMethods();
+						for (Method method : methods) {
+							if(method.getParameterTypes().length == 2 && method.getParameterTypes()[0] == IRequest.class && 
+									method.getParameterTypes()[1] == IResponse.class) {
+								//符合action的方法
+								String url = baseurl + "/" + method.getName();
+								
+								QdfInterceptor []interceptors = InterceptorManage.me().getInterceptors(clazz, method);
+								
+								Action ac = new Action(clazz, method, interceptors, url);
+								
+								routeMap.put(url, ac);
+							}
+						}
 					}
 				}
 			}
-			System.out.println("添加路由:" + JsonUtil.toJsonString(routeMap));
+			System.out.println("添加路由:" + JsonUtil.toJsonString(routeMap.keySet()));
 		}catch( IOException e ){
 			throw new RuntimeException( e );
 		}

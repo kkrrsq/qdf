@@ -5,17 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.qdf.interceptor.QdfInterceptor;
-
-
-/**
- * 拦截器注解
- * @author xiezq
- *
- */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE,ElementType.METHOD})
-public @interface Interceptor {
+@Target(ElementType.TYPE)
+public @interface GlobalInterceptor {
 
-	Class<?>[] value();
 }

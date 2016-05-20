@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.qdf.config.QdfConfig;
 import com.qdf.db.DruidPool;
 import com.qdf.db.Pool;
+import com.qdf.interceptor.InterceptorManage;
 import com.qdf.util.PropertiesUtil;
 
 /**
@@ -48,10 +49,15 @@ public class Qdf {
 		String dbPassword = propertiesUtil.getProperty("db.password");
 		int dbMaxActive = propertiesUtil.getInt("db.maxActive",300);
 		String ignoreUrl = propertiesUtil.getProperty("qdf.ignoreUrl");
-		String scanPackage = propertiesUtil.getProperty("qdf.scan.package");
+		
+		
+		String actionPackage = propertiesUtil.getProperty("qdf.scan.action");
+		String modelPackage = propertiesUtil.getProperty("qdf.scan.model");
+		String globalInterceptor = propertiesUtil.getProperty("qdf.global.interceptors");
 		
 		if(Strings.isNullOrEmpty(dbUrl) || Strings.isNullOrEmpty(dbUsername) ||
-				Strings.isNullOrEmpty(dbPassword) || Strings.isNullOrEmpty(scanPackage)) {
+				Strings.isNullOrEmpty(dbPassword) || Strings.isNullOrEmpty(actionPackage) ||
+				Strings.isNullOrEmpty(modelPackage) ) {
 			throw new RuntimeException("qdf初始化失败,读取配置出错,请检查配置...");
 		}
 		
@@ -59,8 +65,8 @@ public class Qdf {
 			config.setIgnoreUrl(ignoreUrl);
 		}
 		
-		route.setActionPackage(scanPackage);
-		table.setModelPackage(scanPackage);
+		route.setActionPackage(actionPackage);
+		table.setModelPackage(modelPackage);
 		
 		config.setDBProperty("url", dbUrl);
 		config.setDBProperty("username", dbUsername);
@@ -69,9 +75,15 @@ public class Qdf {
 		
 		pool = DruidPool.me();
 		
+		if(!Strings.isNullOrEmpty(globalInterceptor)) {
+			InterceptorManage.me().addGlobalInterceptor(globalInterceptor);
+		}
+		
 		route.scanActions();
 		
 		table.scanModel();
+		
+		
 		
 	}
 	

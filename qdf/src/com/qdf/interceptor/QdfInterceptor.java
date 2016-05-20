@@ -1,4 +1,7 @@
 package com.qdf.interceptor;
+
+import com.qdf.core.Invocation;
+
 /**
  * 拦截器接口
  * @author xiezq
@@ -6,7 +9,6 @@ package com.qdf.interceptor;
  */
 public interface QdfInterceptor {
 
-	public abstract void before();
+	public abstract void intercept(Invocation in);
 	
-	public abstract void after();
 }
