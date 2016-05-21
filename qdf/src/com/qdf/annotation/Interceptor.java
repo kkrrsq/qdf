@@ -17,5 +17,6 @@ import com.qdf.interceptor.QdfInterceptor;
 @Target({ElementType.TYPE,ElementType.METHOD})
 public @interface Interceptor {
 
+	//实现了qdfInterceptor接口的拦截器类
 	Class<?>[] value();
 }

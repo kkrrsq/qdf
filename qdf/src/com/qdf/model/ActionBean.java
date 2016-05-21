@@ -7,19 +7,19 @@ import com.qdf.interceptor.QdfInterceptor;
 
 /**
  * 保存Action的信息
- * action对应QdfAction中的一个方法
+ * ActionBean对应QdfAction中的一个方法
  * 如:/user/add -> UserAction.add()
  * @author xiezq
  *
  */
-public class Action {
+public class ActionBean {
 
 	private Class<?> qdfAction;
 	private Method method;
 	private QdfInterceptor []interceptors;
 	private String url;
 	
-	public Action(Class<?> qdfAction, Method method, QdfInterceptor[] interceptors, String url) {
+	public ActionBean(Class<?> qdfAction, Method method, QdfInterceptor[] interceptors, String url) {
 		this.qdfAction = qdfAction;
 		this.method = method;
 		this.interceptors = interceptors;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qdf.annotation.Interceptor;
 import com.qdf.interceptor.QdfInterceptor;
-import com.qdf.model.Action;
+import com.qdf.model.ActionBean;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 
@@ -21,18 +21,18 @@ import com.qdf.servlet.IResponse;
  */
 public class ActionHandle {
 
-	public void handle(Action actionModel,String methodName,IRequest request,
+	public void handle(ActionBean actionBean,String methodName,IRequest request,
 			IResponse response) {
 		try {
 
-			QdfAction action = (QdfAction) actionModel.getQdfAction().newInstance();
+			QdfAction action = (QdfAction) actionBean.getQdfAction().newInstance();
 			
 			
-			Method method = actionModel.getMethod();
+			Method method = actionBean.getMethod();
 			
 			Object [] objects = new Object[]{request,response};
 			
-			new Invocation(actionModel, method, objects).invoke();
+			new Invocation(actionBean, method, objects).invoke();
 			
 			
 		} catch (Exception e) {

@@ -10,7 +10,7 @@ import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 import com.qdf.interceptor.InterceptorManage;
 import com.qdf.interceptor.QdfInterceptor;
-import com.qdf.model.Action;
+import com.qdf.model.ActionBean;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 import com.qdf.util.JsonUtil;
@@ -22,15 +22,15 @@ import com.qdf.util.JsonUtil;
  */
 public class Route {
 
-	private Map<String, Action> routeMap = new HashMap<>();
+	private Map<String, ActionBean> routeMap = new HashMap<>();
 	
 	private String actionPackage;
 	
-	public void setRoute(String url,Action action) {
-		routeMap.put(url, action);
+	public void setRoute(String url,ActionBean actionBean) {
+		routeMap.put(url, actionBean);
 	}
 	
-	public Action getRoute(String url) {
+	public ActionBean getRoute(String url) {
 		return routeMap.get(url);
 	}
 	
@@ -60,9 +60,9 @@ public class Route {
 								
 								QdfInterceptor []interceptors = InterceptorManage.me().getInterceptors(clazz, method);
 								
-								Action ac = new Action(clazz, method, interceptors, url);
+								ActionBean actionBean = new ActionBean(clazz, method, interceptors, url);
 								
-								routeMap.put(url, ac);
+								routeMap.put(url, actionBean);
 							}
 						}
 					}

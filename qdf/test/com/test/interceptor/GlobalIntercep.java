@@ -1,10 +1,8 @@
 package com.test.interceptor;
 
-import com.qdf.annotation.GlobalInterceptor;
 import com.qdf.core.Invocation;
 import com.qdf.interceptor.QdfInterceptor;
 
-@GlobalInterceptor
 public class GlobalIntercep implements QdfInterceptor {
 
 	@Override

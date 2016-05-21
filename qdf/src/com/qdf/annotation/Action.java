@@ -14,5 +14,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Action {
 
+	//Action对应的url
 	String url();
 }

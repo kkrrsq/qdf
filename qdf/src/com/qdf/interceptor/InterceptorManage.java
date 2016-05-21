@@ -6,6 +6,10 @@ import java.util.List;
 
 import com.google.common.base.Splitter;
 import com.qdf.annotation.Interceptor;
+import com.qdf.annotation.Skip;
+import com.sun.swing.internal.plaf.metal.resources.metal;
+
+import sun.util.resources.cldr.az.CalendarData_az_Cyrl_AZ;
 
 public class InterceptorManage {
 
@@ -43,7 +47,10 @@ public class InterceptorManage {
 		
 		List<QdfInterceptor> interceptorList = new ArrayList<>();
 		
-		if(null != globalInterceptors) {
+		Skip skipAtClass = clazz.getAnnotation(Skip.class);
+		Skip skipAtMethod = method.getAnnotation(Skip.class);
+		
+		if(null == skipAtClass && null != globalInterceptors) {
 			//全局拦截器
 			for (QdfInterceptor inter : globalInterceptors) {
 				interceptorList.add(inter);
@@ -51,7 +58,7 @@ public class InterceptorManage {
 		}
 		
 		Interceptor classInterceptorAno =  clazz.getAnnotation(Interceptor.class);
-		if(null != classInterceptorAno) {
+		if(null == skipAtMethod && null != classInterceptorAno) {
 			Class<?> []interceptors =  classInterceptorAno.value();
 			for (Class<?> interc : interceptors) {
 				Class<QdfInterceptor> qcClass = (Class<QdfInterceptor>) interc;

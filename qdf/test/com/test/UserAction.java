@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.qdf.annotation.Action;
 import com.qdf.annotation.Interceptor;
+import com.qdf.annotation.Skip;
 import com.qdf.core.Qdf;
 import com.qdf.core.QdfAction;
 import com.qdf.db.SessionFactory;

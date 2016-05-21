@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.qdf.interceptor.QdfInterceptor;
-import com.qdf.model.Action;
+import com.qdf.model.ActionBean;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 
@@ -17,18 +17,18 @@ import com.qdf.servlet.IResponse;
  */
 public class Invocation {
 
-	private Action action;
+	private ActionBean actionBean;
 	private Method method;
 	private QdfInterceptor []interceptors;
 	private Object[] args;
 	//记录当前interceptor的下标
 	private int index = 0;
 	
-	public Invocation(Action action,Method method,Object []args) {
-		this.action = action;
+	public Invocation(ActionBean actionBean,Method method,Object []args) {
+		this.actionBean = actionBean;
 		this.method = method;
 		this.args = args;
-		this.interceptors = action.getInterceptors();
+		this.interceptors = actionBean.getInterceptors();
 	}
 
 	public void invoke() {
@@ -39,7 +39,7 @@ public class Invocation {
 		} else if(index++ == interceptors.length) {
 			//执行action的方法
 			try {
-				method.invoke(action.getQdfAction().newInstance(), args);
+				method.invoke(actionBean.getQdfAction().newInstance(), args);
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
