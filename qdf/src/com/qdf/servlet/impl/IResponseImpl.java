@@ -145,4 +145,16 @@ public class IResponseImpl implements IResponse{
 		return this.cookies;
 	}
 
+	@Override
+	public void redirect(String url) {
+		this.dataType = Type.Redirect;
+		this.data = url;
+	}
+
+	@Override
+	public void forward(String url) {
+		this.dataType = Type.FORWARD;
+		this.data = url;
+	}
+
 }

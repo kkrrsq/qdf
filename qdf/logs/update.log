@@ -13,3 +13,4 @@
 			qdf.tx.method=save.*|update.*
 			qdf.tx.level=4
 	2.添加日志的支持
+	3.Iresponse增加forward和redirect方法

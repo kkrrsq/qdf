@@ -1,6 +1,7 @@
 package com.qdf.servlet;
 
 import java.io.InputStream;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,6 +27,10 @@ public interface IResponse {
 	 * 响应数据类型
 	 */
 	enum Type{
+		
+		FORWARD("forward"),
+		
+		Redirect("redirect"),
 
 		/**
 		 * json数据
@@ -173,4 +178,7 @@ public interface IResponse {
 	 */
 	String getContentType();
 	
+	void redirect(String url);
+	
+	void forward(String url);
 }

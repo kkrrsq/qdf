@@ -19,6 +19,7 @@ import com.test.interceptor.ClassInterceptor;
 import com.test.interceptor.ClassInterceptor2;
 import com.test.interceptor.MyInterceptor;
 
+@Skip
 @Action(url = "/user")
 @Interceptor({ClassInterceptor.class,ClassInterceptor2.class})
 public class UserAction implements QdfAction {
@@ -93,4 +94,14 @@ public class UserAction implements QdfAction {
 	@Skip
 	public void log(IRequest request,IResponse response) {
 	}
+	
+	
+	public void redirect(IRequest request,IResponse responses) {
+		responses.redirect("http://www.baidu.com");
+	}
+	
+	public void forward(IRequest request,IResponse responses) {
+		responses.forward("list");
+	}
+	
 }

@@ -45,7 +45,7 @@ public class QdfFilter implements Filter{
 		rep.setCharacterEncoding(Qdf.me().getConfig().getENCODING());
 		
 		String url = req.getRequestURI().substring(req.getContextPath().length());
-		
+		System.out.println(url);
 		
 		if(null != Qdf.me().getConfig().getIgnoreUrl() && ( "/".equals(url) || url.matches(Qdf.me().getConfig().getIgnoreUrl()))) {
 			filterChain.doFilter(request, response);
@@ -87,7 +87,11 @@ public class QdfFilter implements Filter{
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
-				}else{
+				} else if(IResponse.Type.FORWARD == resType) {
+					req.getRequestDispatcher(iResponse.getData()).forward(req, rep);
+				} else if(IResponse.Type.Redirect == resType) {
+					rep.sendRedirect(iResponse.getData());
+				} else{
 					
 					// 禁止浏览器缓存
 					rep.setHeader( "Pragma", "no-cache" );
