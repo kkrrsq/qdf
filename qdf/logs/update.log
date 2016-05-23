@@ -1,2 +1,14 @@
 2016年5月20日18:06:42
-1.增加全局拦截器、类拦截器、方法拦截器
+	1.增加全局拦截器、类拦截器、方法拦截器
+
+2016年5月21日17:21:24
+	1.添加跳过上一层Interceptor的注解@Skip
+	2.com.qdf.model.Action改名ActionBean,防止跟Action混淆
+	
+2016年5月23日13:38:10
+	1.添加事务的支持
+		a.注解实现:
+			@Interceptor(Tx.class)
+		b.配置文件实现:
+			qdf.tx.method=save.*|update.*
+			qdf.tx.level=4

@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.qdf.config.QdfConfig;
 import com.qdf.db.DruidPool;
 import com.qdf.db.Pool;
+import com.qdf.db.TxByMethodRegex;
 import com.qdf.interceptor.InterceptorManage;
 import com.qdf.util.PropertiesUtil;
 
@@ -50,10 +51,12 @@ public class Qdf {
 		int dbMaxActive = propertiesUtil.getInt("db.maxActive",300);
 		String ignoreUrl = propertiesUtil.getProperty("qdf.ignoreUrl");
 		
-		
 		String actionPackage = propertiesUtil.getProperty("qdf.scan.action");
 		String modelPackage = propertiesUtil.getProperty("qdf.scan.model");
 		String globalInterceptor = propertiesUtil.getProperty("qdf.global.interceptors");
+		
+		String txMehtodRegex = propertiesUtil.getProperty("qdf.tx.method");
+		int txLevel = propertiesUtil.getInt("qdf.tx.level");
 		
 		if(Strings.isNullOrEmpty(dbUrl) || Strings.isNullOrEmpty(dbUsername) ||
 				Strings.isNullOrEmpty(dbPassword) || Strings.isNullOrEmpty(actionPackage) ||
@@ -77,6 +80,11 @@ public class Qdf {
 		
 		if(!Strings.isNullOrEmpty(globalInterceptor)) {
 			InterceptorManage.me().addGlobalInterceptor(globalInterceptor);
+		}
+		
+		if(!Strings.isNullOrEmpty(txMehtodRegex)) {
+			System.out.println("天骄声明式事务");
+			InterceptorManage.me().addGlobalInterceptor(new TxByMethodRegex(txMehtodRegex, txLevel));
 		}
 		
 		route.scanActions();

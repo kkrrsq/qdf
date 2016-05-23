@@ -35,7 +35,7 @@ public class PropertiesUtil {
 				try {
 					is.close();
 				} catch (IOException e) {
-					throw new RuntimeException(e);
+					System.err.println(e.toString());
 				}
 		}
 	}

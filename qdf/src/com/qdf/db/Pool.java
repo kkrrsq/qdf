@@ -9,4 +9,6 @@ public interface Pool {
 	Connection getConnection();
 	
 	String getDbType();
+	
+	Connection getThreadLocalConnection();
 }

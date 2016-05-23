@@ -1,12 +1,9 @@
 package com.qdf.core;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.qdf.interceptor.QdfInterceptor;
 import com.qdf.model.ActionBean;
-import com.qdf.servlet.IRequest;
-import com.qdf.servlet.IResponse;
 
 
 
@@ -46,4 +43,11 @@ public class Invocation {
 		}
 	} 
 	
+	public Method getMethod() {
+		return method;
+	}
+	
+	public Class<?> getAction() {
+		return actionBean.getQdfAction();
+	}
 }

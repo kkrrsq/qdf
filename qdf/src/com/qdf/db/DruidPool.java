@@ -48,6 +48,11 @@ public class DruidPool implements Pool{
 	public String getDbType() {
 		return dataSource.getDbType();
 	}
+	
+	@Override
+	public Connection getThreadLocalConnection() {
+		return connections.get();
+	}
 
 	
 }

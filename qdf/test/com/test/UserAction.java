@@ -1,17 +1,15 @@
 package com.test;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.qdf.annotation.Action;
 import com.qdf.annotation.Interceptor;
 import com.qdf.annotation.Skip;
-import com.qdf.core.Qdf;
+import com.qdf.annotation.TxLevel;
 import com.qdf.core.QdfAction;
 import com.qdf.db.SessionFactory;
+import com.qdf.db.Tx;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 import com.qdf.util.JsonUtil;
@@ -61,37 +59,31 @@ public class UserAction implements QdfAction {
 		response.setDataByJsonCMD(list);
 	}
 	
-	
+	@Skip
+	@Interceptor(Tx.class)
+	@TxLevel(2)
 	public void tx(IRequest request,IResponse response) {
 		
-		Connection connection = Qdf.me().getPool().getConnection();
+		UserService userService = new UserService();
+		userService.tx();
+	}
+	
+	
+	public void saveUser(IRequest request,IResponse response) {
+		User user = new User();
+		user.setId("10");
+		user.setAge(10);
+		user.setName("xzq");
+		user.setSex("男");
+		SessionFactory.getSession().save(user);
 		
-		String sql = "update user set age = 10 where id = ?";
+		int i = 1/0;
 		
-		try {
-			
-			connection.setAutoCommit(false);
-			
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, "1");
-			ps.executeUpdate();
-			
-			
-			ps.setString(1, "2");
-			ps.executeUpdate();
-			
-			connection.commit();
-			System.out.println("事务提交");
-		} catch (Exception e) {
-		
-			try {
-				connection.rollback();
-				System.out.println("事务回滚");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
-		
-		
+		User user2 = new User();
+		user2.setId("11");
+		user2.setAge(11);
+		user2.setName("xsy");
+		user2.setSex("女");
+		SessionFactory.getSession().save(user2);
 	}
 }
