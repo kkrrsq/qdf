@@ -83,7 +83,6 @@ public class Qdf {
 		}
 		
 		if(!Strings.isNullOrEmpty(txMehtodRegex)) {
-			System.out.println("天骄声明式事务");
 			InterceptorManage.me().addGlobalInterceptor(new TxByMethodRegex(txMehtodRegex, txLevel));
 		}
 		

@@ -10,9 +10,11 @@ import com.qdf.annotation.TxLevel;
 import com.qdf.core.QdfAction;
 import com.qdf.db.SessionFactory;
 import com.qdf.db.Tx;
+import com.qdf.log.ILogger;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 import com.qdf.util.JsonUtil;
+import com.qdf.util.LogUtil;
 import com.test.interceptor.ClassInterceptor;
 import com.test.interceptor.ClassInterceptor2;
 import com.test.interceptor.MyInterceptor;
@@ -20,6 +22,7 @@ import com.test.interceptor.MyInterceptor;
 @Action(url = "/user")
 @Interceptor({ClassInterceptor.class,ClassInterceptor2.class})
 public class UserAction implements QdfAction {
+	
 
 	@Override
 	public void execute(IRequest request, IResponse response) {
@@ -85,5 +88,9 @@ public class UserAction implements QdfAction {
 		user2.setName("xsy");
 		user2.setSex("女");
 		SessionFactory.getSession().save(user2);
+	}
+	
+	@Skip
+	public void log(IRequest request,IResponse response) {
 	}
 }

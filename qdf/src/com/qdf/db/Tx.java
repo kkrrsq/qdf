@@ -7,6 +7,7 @@ import com.qdf.annotation.TxLevel;
 import com.qdf.core.Invocation;
 import com.qdf.core.Qdf;
 import com.qdf.interceptor.QdfInterceptor;
+import com.qdf.util.LogUtil;
 import com.sun.org.apache.xml.internal.security.Init;
 
 public class Tx implements QdfInterceptor {
@@ -60,7 +61,7 @@ public class Tx implements QdfInterceptor {
 					conn.rollback();
 					System.out.println("rollback...");
 				} catch (SQLException e1) {
-					System.err.println(e1.toString());
+					LogUtil.error(e1.getMessage(),e1);
 				}
 				throw new RuntimeException(e);
 			} finally {
@@ -70,11 +71,10 @@ public class Tx implements QdfInterceptor {
 						conn.close();
 					}
 				} catch (SQLException e) {
-					System.err.println(e.toString());
+					LogUtil.error(e.getMessage(),e);
 				}
 			}
 		}
-		
 	}
 
 }

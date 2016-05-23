@@ -21,6 +21,7 @@ import com.alibaba.druid.sql.parser.SQLParserUtils;
 import com.alibaba.druid.sql.parser.SQLStatementParser;
 import com.qdf.core.Qdf;
 import com.qdf.core.TypeConverter;
+import com.qdf.util.LogUtil;
 import com.qdf.util.StringUtil;
 
 public class SessionFactory {
@@ -101,7 +102,7 @@ public class SessionFactory {
 					conn.close();
 				}
 			} catch (Exception e2) {
-				System.err.println(e2.toString());
+				LogUtil.error(e2.getMessage(),e2);
 			}
 		}
 
@@ -133,7 +134,7 @@ public class SessionFactory {
 					conn.close();
 				}
 			} catch (Exception e2) {
-				System.err.println(e2.toString());
+				LogUtil.error(e2.getMessage(),e2);
 			}
 		}
 
@@ -207,7 +208,7 @@ public class SessionFactory {
 					conn.close();
 				}
 			} catch (Exception e2) {
-				System.err.println(e2.toString());
+				LogUtil.error(e2.getMessage(),e2);
 			}
 		}
 
@@ -265,7 +266,7 @@ public class SessionFactory {
 					conn.close();
 				}
 			} catch (Exception e2) {
-				System.err.println(e2.toString());
+				LogUtil.error(e2.getMessage(),e2);
 			}
 		}
 	}
@@ -343,7 +344,7 @@ public class SessionFactory {
 					conn.close();
 				}
 			} catch (Exception e2) {
-				System.err.println(e2.toString());
+				LogUtil.error(e2.getMessage(),e2);
 			}
 		}
 

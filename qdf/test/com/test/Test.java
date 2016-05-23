@@ -1,20 +1,15 @@
 package com.test;
 
+import com.qdf.log.ILogger;
+import com.qdf.log.ILoggerFactory;
+
+
 public class Test {
 
+	private static final ILogger LOG = ILoggerFactory.getLogger(Test.class);
 	
 	public static void main(String[] args) throws Exception{
-
-		try {
-			throw new RuntimeException("error1");
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				int i = 1/0;
-			} catch (Exception e2) {
-				System.out.println(e2.toString());
-			}
-		}
+		LOG.info("LGO TEST");
 	}
+	
 }

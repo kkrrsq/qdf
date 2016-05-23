@@ -35,7 +35,7 @@ public class DbUtil {
 					conn.rollback();
 					System.out.println("rollback...");
 				} catch (SQLException e1) {
-					System.err.println(e1.toString());
+					LogUtil.error(e1.getMessage(),e1);
 				}
 				throw new RuntimeException(e);
 			} finally {
@@ -44,7 +44,7 @@ public class DbUtil {
 						conn.setAutoCommit(autoCommit);
 						conn.close();
 					} catch (SQLException e) {
-						System.err.println(e.toString());
+						LogUtil.error(e.getMessage(),e);
 					}
 				}
 			}

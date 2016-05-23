@@ -12,3 +12,4 @@
 		b.配置文件实现:
 			qdf.tx.method=save.*|update.*
 			qdf.tx.level=4
+	2.添加日志的支持
