@@ -118,8 +118,6 @@ public class QdfFilter implements Filter{
 	public void init(FilterConfig config) {
 		
 		Qdf.me().init();
-		
-		System.out.println("qdf init...");
 	}
 
 	

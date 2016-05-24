@@ -17,5 +17,5 @@ public @interface Model {
 	//主键名
 	String pk() default "id";
 	//表名
-	String table() default "";
+	String table();
 }

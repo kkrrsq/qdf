@@ -6,6 +6,7 @@ import com.qdf.db.DruidPool;
 import com.qdf.db.Pool;
 import com.qdf.db.TxByMethodRegex;
 import com.qdf.interceptor.InterceptorManage;
+import com.qdf.util.LogUtil;
 import com.qdf.util.PropertiesUtil;
 
 /**
@@ -90,21 +91,21 @@ public class Qdf {
 		
 		table.scanModel();
 		
-		
+		LogUtil.info("qdf启动成功...");
 		
 	}
 	
 	//框架销毁
 	public void destroy(){
-		if(null != route) {
-			route = null;
-		}
-		if(null != config) {
-			config = null;
-		}
-		if(null != actionHandle) {
+		if(null != actionHandle)
 			actionHandle = null;
-		}
+		if(null != config)
+			config = null;
+		if(null != table)
+			table = null;
+		if(null != route) 
+			route = null;
+		LogUtil.info("qdf销毁成功...");
 	}
 
 	public Route getRoute() {

@@ -14,6 +14,7 @@ import com.qdf.model.ActionBean;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 import com.qdf.util.JsonUtil;
+import com.qdf.util.LogUtil;
 
 /**
  * 路由
@@ -68,7 +69,7 @@ public class Route {
 					}
 				}
 			}
-			System.out.println("添加路由:" + JsonUtil.toJsonString(routeMap.keySet()));
+			LogUtil.info("添加路由:" + JsonUtil.toJsonString(routeMap.keySet()));
 		}catch( IOException e ){
 			throw new RuntimeException( e );
 		}

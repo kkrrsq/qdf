@@ -9,6 +9,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 import com.qdf.annotation.Model;
+import com.qdf.util.JsonUtil;
+import com.qdf.util.LogUtil;
 import com.qdf.util.StringUtil;
 
 public class Table {
@@ -42,9 +44,9 @@ public class Table {
 					if(Strings.isNullOrEmpty(pk)) 
 						pk = "id";
 					pkMap.put(clazz, pk);
-					System.out.println("添加表:" + table + ",主键:" + pk);
 				}
 			}
+			LogUtil.info("添加表:"+JsonUtil.toJsonString(tableMap));
 		}catch( IOException e ){
 			throw new RuntimeException( e );
 		}

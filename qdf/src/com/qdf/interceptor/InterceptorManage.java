@@ -7,6 +7,8 @@ import java.util.List;
 import com.google.common.base.Splitter;
 import com.qdf.annotation.Interceptor;
 import com.qdf.annotation.Skip;
+import com.qdf.util.JsonUtil;
+import com.qdf.util.LogUtil;
 import com.sun.swing.internal.plaf.metal.resources.metal;
 
 import sun.util.resources.cldr.az.CalendarData_az_Cyrl_AZ;
@@ -34,6 +36,7 @@ public class InterceptorManage {
 				QdfInterceptor interceptor =  (QdfInterceptor) Class.forName(className).newInstance();
 				this.globalInterceptors.add(interceptor);
 			}
+			LogUtil.info("添加全局拦截器:"+JsonUtil.toJsonString(classNameList));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -2,7 +2,7 @@ package com.test;
 
 import com.qdf.annotation.Model;
 
-@Model
+@Model(table = "user")
 public class User {
 
 	private String id;

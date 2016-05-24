@@ -23,6 +23,11 @@ public class Slf4jLogger implements ILogger{
 	}
 
 	@Override
+	public void debug(String message, Object... objects) {
+		logger.debug(message, objects);
+	}
+	
+	@Override
 	public void debug(String message, Throwable t) {
 		logger.debug(message, t);
 	}
@@ -30,6 +35,11 @@ public class Slf4jLogger implements ILogger{
 	@Override
 	public void info(String message) {
 		logger.info(message);
+	}
+	
+	@Override
+	public void info(String message, Object... objects) {
+		logger.info(message, objects);
 	}
 
 	@Override
@@ -43,6 +53,11 @@ public class Slf4jLogger implements ILogger{
 	}
 
 	@Override
+	public void warn(String message, Object... objects) {
+		logger.warn(message, objects);		
+	}
+
+	@Override
 	public void warn(String message, Throwable t) {
 		logger.warn(message,t);
 	}
@@ -53,10 +68,14 @@ public class Slf4jLogger implements ILogger{
 	}
 
 	@Override
+	public void error(String message, Object... objects) {
+		logger.error(message, objects);	
+	}
+	
+	@Override
 	public void error(String message, Throwable t) {
 		logger.error(message,t);
 	}
-
 
 	@Override
 	public boolean isDebugEnabled() {
