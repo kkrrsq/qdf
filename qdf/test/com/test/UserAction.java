@@ -3,11 +3,14 @@ package com.test;
 
 import java.util.List;
 
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+
 import com.qdf.annotation.Action;
 import com.qdf.annotation.Interceptor;
 import com.qdf.annotation.Skip;
 import com.qdf.annotation.TxLevel;
 import com.qdf.core.QdfAction;
+import com.qdf.db.SessionFactory;
 import com.qdf.db.SessionFactory;
 import com.qdf.db.Tx;
 import com.qdf.log.ILogger;
@@ -102,6 +105,21 @@ public class UserAction implements QdfAction {
 	
 	public void forward(IRequest request,IResponse responses) {
 		responses.forward("list");
+	}
+	
+	public void page(IRequest request,IResponse response) {
+		List<Object> list = SessionFactory.getSession().queryPage("select * from user order by age", 1, 10);
+		response.setDataByJsonCMD(list);
+	}
+	
+	public void insert(IRequest request,IResponse response) {
+		for(int i = 2;i<50;i++) {
+			User user = new User();
+			user.setId(i+"");
+			user.setName("NO."+i);
+			user.setAge(i);
+			SessionFactory.getSession().save(user);
+		}
 	}
 	
 }

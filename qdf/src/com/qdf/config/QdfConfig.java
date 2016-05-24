@@ -12,7 +12,7 @@ public class QdfConfig {
 
 	private String ENCODING = "utf-8";
 	
-	private String ignoreUrl = "html|css|js|json|ico|png|gif|woff|map";
+	private String ignoreUrl = ".+(?i)\\.(html|css|js|json|ico|png|gif|woff|map)$";
 	
 	//保存db配置
 	private Map<String, Object> properties = new HashMap<>();

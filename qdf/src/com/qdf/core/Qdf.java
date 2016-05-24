@@ -66,6 +66,7 @@ public class Qdf {
 		}
 		
 		if(!Strings.isNullOrEmpty(ignoreUrl)) {
+			ignoreUrl = ".+(?i)\\.("+ ignoreUrl +")$";
 			config.setIgnoreUrl(ignoreUrl);
 		}
 		

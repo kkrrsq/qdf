@@ -14,3 +14,6 @@
 			qdf.tx.level=4
 	2.添加日志的支持
 	3.Iresponse增加forward和redirect方法
+
+2016年5月24日10:40:20
+	1.新增四个日志记录的方法

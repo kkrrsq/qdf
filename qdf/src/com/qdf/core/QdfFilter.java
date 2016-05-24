@@ -19,6 +19,7 @@ import com.qdf.model.ActionBean;
 import com.qdf.servlet.IResponse;
 import com.qdf.servlet.impl.HttpServletRequestWrapper;
 import com.qdf.servlet.impl.IResponseImpl;
+import com.qdf.util.LogUtil;
 import com.qdf.util.UrlUtil;
 /**
  * qdf框架主过滤器
@@ -45,9 +46,11 @@ public class QdfFilter implements Filter{
 		rep.setCharacterEncoding(Qdf.me().getConfig().getENCODING());
 		
 		String url = req.getRequestURI().substring(req.getContextPath().length());
+		
 		System.out.println(url);
 		
 		if(null != Qdf.me().getConfig().getIgnoreUrl() && ( "/".equals(url) || url.matches(Qdf.me().getConfig().getIgnoreUrl()))) {
+			LogUtil.info("跳过拦截url:{}",url);
 			filterChain.doFilter(request, response);
 			return;
 		}

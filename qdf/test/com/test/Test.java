@@ -9,7 +9,9 @@ public class Test {
 	private static final ILogger LOG = ILoggerFactory.getLogger(Test.class);
 	
 	public static void main(String[] args) throws Exception{
-		LOG.info("LGO TEST {},this class is {}",1,Test.class.getName());
+		
+		String url = "/index.html";
+		System.out.println();
 	}
 	
 }
