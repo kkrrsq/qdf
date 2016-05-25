@@ -12,6 +12,9 @@
 		b.配置文件实现:
 			qdf.tx.method=save.*|update.*
 			qdf.tx.level=4
+		c.代码实现:
+			DbUtil.tx(TxRun txRun,int TxLevel)
+			业务逻辑写在txRun中的run方法中
 	2.添加日志的支持
 	3.Iresponse增加forward和redirect方法
 
@@ -19,3 +22,6 @@
 	1.新增四个日志记录的方法
 	2.新增sql日志记录
 	3.修复QdfFilter拦截忽略url的bug
+	
+2016年5月25日14:55:09
+	1.TxRun接口中的run方法新增boolean返回值,返回true提交事务,返回false回滚

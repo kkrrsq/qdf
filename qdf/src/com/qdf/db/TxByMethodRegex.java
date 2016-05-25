@@ -23,7 +23,7 @@ public class TxByMethodRegex implements QdfInterceptor {
 	public void intercept(Invocation in) {
 		if(pattern.matcher(in.getMethod().getName()).matches()) {
 			//符合tx配置的正则,添加事务
-			DbUtil.tx(()->{in.invoke();}, txLevel);
+			DbUtil.tx(()->{in.invoke();return true;}, txLevel);
 		} else {
 			in.invoke();
 		}

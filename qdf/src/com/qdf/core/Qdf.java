@@ -57,7 +57,7 @@ public class Qdf {
 		String globalInterceptor = propertiesUtil.getProperty("qdf.global.interceptors");
 		
 		String txMehtodRegex = propertiesUtil.getProperty("qdf.tx.method");
-		int txLevel = propertiesUtil.getInt("qdf.tx.level",2);
+		int txLevel = propertiesUtil.getInt("qdf.tx.level",4);
 		
 		if(Strings.isNullOrEmpty(dbUrl) || Strings.isNullOrEmpty(dbUsername) ||
 				Strings.isNullOrEmpty(dbPassword) || Strings.isNullOrEmpty(actionPackage) ||

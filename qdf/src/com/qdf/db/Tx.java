@@ -30,7 +30,7 @@ public class Tx implements QdfInterceptor {
 
 		this.init(in);
 		
-		DbUtil.tx(()->{in.invoke();}, this.txLevel);
+		DbUtil.tx(()->{in.invoke();return true;}, this.txLevel);
 	}
 
 }

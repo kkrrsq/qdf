@@ -16,6 +16,7 @@ import com.qdf.db.Tx;
 import com.qdf.log.ILogger;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
+import com.qdf.util.DbUtil;
 import com.qdf.util.JsonUtil;
 import com.qdf.util.LogUtil;
 import com.test.interceptor.ClassInterceptor;
@@ -120,6 +121,21 @@ public class UserAction implements QdfAction {
 			user.setAge(i);
 			SessionFactory.getSession().save(user);
 		}
+	}
+	
+	/**
+	 * 测试dbUtil的tx
+	 * @param request
+	 * @param response
+	 */
+	public void dbtx(IRequest request,IResponse response) {
+		DbUtil.tx(() -> {
+			User user = new User();
+			user.setId("1111");
+			user.setName("xxx");
+			SessionFactory.getSession().save(user);
+			return false;
+		}, 2);
 	}
 	
 }

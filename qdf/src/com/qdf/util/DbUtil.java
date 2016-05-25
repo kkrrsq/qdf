@@ -28,8 +28,15 @@ public class DbUtil {
 				autoCommit = conn.getAutoCommit();
 				conn.setTransactionIsolation(txLevel);
 				conn.setAutoCommit(false);
-				txRun.run();
-				conn.commit();
+				boolean flag = txRun.run();
+				if(flag) {
+					conn.commit();
+					LogUtil.info("事务提交...");
+				} else {
+					conn.rollback();
+					LogUtil.info("事务回滚...");
+				}
+				
 			} catch (Exception e) {
 				try {
 					conn.rollback();
