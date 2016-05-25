@@ -23,7 +23,6 @@ public class FileAction implements QdfAction{
 	public void execute(IRequest request,IResponse response) {
 		
 		System.out.println("execute");
-		System.out.println(request.getMethod());
 		
 	}
 	
@@ -33,7 +32,10 @@ public class FileAction implements QdfAction{
 		for (String path : uploadFiles) {
 			System.out.println(path);
 		}
+		
+		//获取参数必须在获取文件后面执行
 		System.out.println(request.getParameter("id"));
+		
 	}
 
 	//文件下载

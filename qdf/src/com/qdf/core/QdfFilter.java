@@ -28,13 +28,6 @@ import com.qdf.util.UrlUtil;
  */
 public class QdfFilter implements Filter{
 
-	
-	@Override
-	public void destroy() {
-		Qdf.me().destroy();
-		System.out.println("qdf destroy...");
-	}
-
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
@@ -122,6 +115,10 @@ public class QdfFilter implements Filter{
 		
 		Qdf.me().init();
 	}
-
+	
+	@Override
+	public void destroy() {
+		Qdf.me().destroy();
+	}
 	
 }

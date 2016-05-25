@@ -75,19 +75,19 @@ public class UserAction implements QdfAction {
 		userService.tx();
 	}
 	
-	
+	@Skip
+	@Interceptor(Tx.class)
+	@TxLevel(2)
 	public void saveUser(IRequest request,IResponse response) {
 		User user = new User();
-		user.setId("10");
+		user.setId("101");
 		user.setAge(10);
 		user.setName("xzq");
 		user.setSex("男");
 		SessionFactory.getSession().save(user);
 		
-		int i = 1/0;
-		
 		User user2 = new User();
-		user2.setId("11");
+		user2.setId("102");
 		user2.setAge(11);
 		user2.setName("xsy");
 		user2.setSex("女");

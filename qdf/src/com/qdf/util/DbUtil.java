@@ -33,7 +33,7 @@ public class DbUtil {
 			} catch (Exception e) {
 				try {
 					conn.rollback();
-					System.out.println("rollback...");
+					LogUtil.info("事务回滚...");
 				} catch (SQLException e1) {
 					LogUtil.error(e1.getMessage(),e1);
 				}
