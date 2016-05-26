@@ -27,8 +27,8 @@ public class ActionBean {
 	}
 	
 	
-	public Class<?> getQdfAction() {
-		return qdfAction;
+	public <T> Class<T> getQdfAction() {
+		return (Class<T>) qdfAction;
 	}
 
 

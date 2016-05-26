@@ -29,3 +29,5 @@
 2016年5月26日11:06:53
 	1.新增QdfPlugin接口,通过实现该接口新增插件
 	2.新增Ehcache缓存插件
+	3.CacheUtil新增一系列操作缓存的方法
+	4.com.qdf.util.Dbutil移到com.qdf.db下

@@ -10,12 +10,12 @@ public interface Session {
 	
 	int update(Object obj);
 	
-	Object findById(Class<?> clazz, Object id);
+	<T> T findById(Class<?> clazz, Object id);
 	
-	List<Object> queryList(String sql, Object... objects);
+	<T> List<T> queryList(String sql, Object... objects);
 	
-	List<Object> queryPage(Class<?> clazz,int page,int pageSize);
+	<T> List<T> queryPage(Class<?> clazz,int page,int pageSize);
 	
-	List<Object> queryPage(String sql,int page,int pageSize);
+	<T> List<T> queryPage(String sql,int page,int pageSize);
 	
 }

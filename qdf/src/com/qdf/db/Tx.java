@@ -7,7 +7,6 @@ import com.qdf.annotation.TxLevel;
 import com.qdf.core.Invocation;
 import com.qdf.core.Qdf;
 import com.qdf.interceptor.QdfInterceptor;
-import com.qdf.util.DbUtil;
 import com.qdf.util.LogUtil;
 import com.sun.org.apache.xml.internal.security.Init;
 

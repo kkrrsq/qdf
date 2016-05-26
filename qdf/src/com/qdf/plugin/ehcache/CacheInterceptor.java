@@ -31,7 +31,6 @@ public class CacheInterceptor implements QdfInterceptor {
 	
 	@Override
 	public void intercept(Invocation in) {
-		
 		Map<String, Object> cacheData = CacheUtil.get(getCacheName(in), getCacheKey(in));
 		
 		if(null == cacheData) {

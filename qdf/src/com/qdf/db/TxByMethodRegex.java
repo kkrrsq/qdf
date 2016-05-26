@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 import com.qdf.core.Invocation;
 import com.qdf.interceptor.QdfInterceptor;
-import com.qdf.util.DbUtil;
 
 public class TxByMethodRegex implements QdfInterceptor {
 

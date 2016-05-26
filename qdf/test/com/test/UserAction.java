@@ -11,15 +11,15 @@ import com.qdf.annotation.Interceptor;
 import com.qdf.annotation.Skip;
 import com.qdf.annotation.TxLevel;
 import com.qdf.core.QdfAction;
-import com.qdf.db.SessionFactory;
+import com.qdf.db.DbUtil;
 import com.qdf.db.SessionFactory;
 import com.qdf.db.Tx;
 import com.qdf.log.ILogger;
 import com.qdf.plugin.ehcache.CacheInterceptor;
 import com.qdf.plugin.ehcache.CacheUtil;
+import com.qdf.plugin.ehcache.DataLoader;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
-import com.qdf.util.DbUtil;
 import com.qdf.util.JsonUtil;
 import com.qdf.util.LogUtil;
 import com.test.interceptor.ClassInterceptor;
@@ -29,7 +29,6 @@ import com.test.interceptor.MyInterceptor;
 @Skip
 @Action(url = "/user")
 @CacheName("/user")
-@Interceptor({ClassInterceptor.class,ClassInterceptor2.class,CacheInterceptor.class})
 public class UserAction implements QdfAction {
 	
 
@@ -45,8 +44,8 @@ public class UserAction implements QdfAction {
 	}
 	
 	public void add(IRequest request,IResponse response) {
-		User user = (User) request.getBean(User.class);
-		System.out.println(JsonUtil.toJsonString(user));
+		User user = request.getBean(User.class);
+		
 		SessionFactory.getSession().save(user);
 	}
 	
@@ -60,9 +59,10 @@ public class UserAction implements QdfAction {
 		SessionFactory.getSession().update(user);
 	}
 	
+	@Interceptor(CacheInterceptor.class)
 	public void find(IRequest request,IResponse response) {
 		String id = request.getParameter("id");
-		User user = (User) SessionFactory.getSession().findById(User.class, id);
+		User user = SessionFactory.getSession().findById(User.class, id);
 		response.setDataByJsonCMD(user);
 	}
 	
@@ -77,7 +77,9 @@ public class UserAction implements QdfAction {
 			list = SessionFactory.getSession().queryList("select * from user", null);
 			CacheUtil.put("/user/list", "list",list);
 		}*/
-		List<Object> list = SessionFactory.getSession().queryList("select * from user", null);
+		List<User> list = CacheUtil.get("/user", "/user/list",()->{
+			return SessionFactory.getSession().queryList("select * from user", null);
+		});
 		response.setDataByJsonCMD(list);
 	}
 	
@@ -123,7 +125,7 @@ public class UserAction implements QdfAction {
 	}
 	
 	public void page(IRequest request,IResponse response) {
-		List<Object> list = SessionFactory.getSession().queryPage("select * from user order by age", 1, 10);
+		List<User> list = SessionFactory.getSession().queryPage("select * from user order by age", 1, 10);
 		response.setDataByJsonCMD(list);
 	}
 	
@@ -145,7 +147,7 @@ public class UserAction implements QdfAction {
 	public void dbtx(IRequest request,IResponse response) {
 		DbUtil.tx(() -> {
 			User user = new User();
-			user.setId("1111");
+			user.setId("1111222");
 			user.setName("xxx");
 			SessionFactory.getSession().save(user);
 			return false;

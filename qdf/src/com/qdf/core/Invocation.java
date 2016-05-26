@@ -49,7 +49,7 @@ public class Invocation {
 		return method;
 	}
 	
-	public Class<?> getAction() {
+	public <T> Class<T> getAction() {
 		return actionBean.getQdfAction();
 	}
 	

@@ -1,5 +1,8 @@
 package com.qdf.plugin.ehcache;
 
+
+import java.util.List;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -34,5 +37,26 @@ public class CacheUtil {
 	public static <T> T get(String cacheName,Object key) {
 		Element element = getOrNewCache(cacheName).get(key);
 		return element == null ? null : (T)element.getValue() ;
+	}
+	
+	public static <T> T get(String cacheName,Object key,DataLoader loader) {
+		Object data = get(cacheName, key);
+		if(null == data) {
+			data = loader.load();
+			put(cacheName, key, data);
+		}
+		return (T) data;
+	}
+	
+	public static void remove(String cacheName,Object key) {
+		getOrNewCache(cacheName).remove(key);
+	}
+	
+	public static void removeAll(String cacheName) {
+		getOrNewCache(cacheName).removeAll();
+	}
+	
+	public static List<?> getKeys(String cacheName) {
+		return getOrNewCache(cacheName).getKeys();
 	}
 }

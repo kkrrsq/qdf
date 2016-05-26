@@ -1,10 +1,11 @@
-package com.qdf.util;
+package com.qdf.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.qdf.core.Qdf;
 import com.qdf.db.TxRun;
+import com.qdf.util.LogUtil;
 
 public class DbUtil {
 

@@ -70,6 +70,6 @@ public interface IRequest {
 	 */
 	File getUploadFile( String uploadFileName );
 	
-	Object getBean(Class<?> clazz);
+	<T> T getBean(Class<T> clazz);
 	
 }

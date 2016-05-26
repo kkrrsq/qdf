@@ -15,11 +15,12 @@ public class Injector {
 
 	/**
 	 * 将前端传入的参数注入到bean
+	 * @param <T>
 	 * @param clazz
 	 * @param paramMap
 	 * @return javaBean
 	 */
-	public static Object injectBean(Class<?> clazz, Map<String, String> paramMap) {
+	public static <T> T injectBean(Class<T> clazz, Map<String, String> paramMap) {
 
 		Object object = null;
 		try {
@@ -43,6 +44,6 @@ public class Injector {
 			throw new RuntimeException(e);
 		}
 
-		return object;
+		return (T)object;
 	}
 }

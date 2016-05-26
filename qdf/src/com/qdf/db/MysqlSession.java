@@ -214,7 +214,7 @@ public class MysqlSession implements Session {
 
 	}
 
-	public Object findById(Class<?> clazz, Object id) {
+	public <T> T findById(Class<?> clazz, Object id) {
 
 		Object obj = null;
 
@@ -251,7 +251,7 @@ public class MysqlSession implements Session {
 				}
 			}
 
-			return obj;
+			return (T)obj;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -271,7 +271,7 @@ public class MysqlSession implements Session {
 		}
 	}
 
-	public List<Object> queryList(String sql, Object... objects) {
+	public <T> List<T> queryList(String sql, Object... objects) {
 
 		SQLStatementParser parser = SQLParserUtils.createSQLStatementParser(sql, Qdf.me().getPool().getDbType());
 		SQLSelectStatement sqlStatement = parser.parseSelect();
@@ -328,7 +328,7 @@ public class MysqlSession implements Session {
 				list.add(obj);
 			}
 
-			return list;
+			return (List<T>) list;
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -350,14 +350,14 @@ public class MysqlSession implements Session {
 
 	}
 	
-	public List<Object> queryPage(Class<?> clazz,int page,int pageSize) {
+	public <T> List<T> queryPage(Class<?> clazz,int page,int pageSize) {
 		
 		String tableName = Qdf.me().getTable().getTableMap().get(clazz);
 		String sql = "select * from " + tableName + " limit " + ((page-1)*pageSize)+","+pageSize;;
 		return queryList(sql, new Object[]{});
 	}
 	
-	public List<Object> queryPage(String sql,int page,int pageSize) {
+	public <T> List<T> queryPage(String sql,int page,int pageSize) {
 		
 		sql = sql + " limit " + ((page-1)*pageSize)+","+pageSize;;
 		return queryList(sql, new Object[]{});

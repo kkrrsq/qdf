@@ -184,7 +184,7 @@ public class HttpServletRequestWrapper extends AbstractRequest implements IReque
 	}
 
 	@Override
-	public Object getBean(Class<?> clazz) {
+	public <T> T getBean(Class<T> clazz) {
 		return Injector.injectBean(clazz, parameters);
 	}
 

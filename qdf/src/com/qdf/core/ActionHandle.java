@@ -25,7 +25,9 @@ public class ActionHandle {
 			IResponse response) {
 		try {
 
-			QdfAction action = (QdfAction) actionBean.getQdfAction().newInstance();
+			Class<QdfAction> qdfClazz = actionBean.getQdfAction();
+			
+			QdfAction action = qdfClazz.newInstance();
 			
 			
 			Method method = actionBean.getMethod();

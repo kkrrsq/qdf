@@ -33,8 +33,11 @@ public class InterceptorManage {
 		List<String> classNameList = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(classNames);
 		try {
 			for (String className : classNameList) {
-				QdfInterceptor interceptor =  (QdfInterceptor) Class.forName(className).newInstance();
-				this.globalInterceptors.add(interceptor);
+				Class<?> clazz = Class.forName(className);
+				if(QdfInterceptor.class.isAssignableFrom(clazz)) {
+					QdfInterceptor interceptor =  (QdfInterceptor) clazz.newInstance();
+					this.globalInterceptors.add(interceptor);
+				}
 			}
 			LogUtil.info("添加全局拦截器:"+JsonUtil.toJsonString(classNameList));
 		} catch (Exception e) {
