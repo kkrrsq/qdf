@@ -1,9 +1,11 @@
 package com.test;
 
+import java.io.Serializable;
+
 import com.qdf.annotation.Model;
 
 @Model(table = "user")
-public class User {
+public class User implements Serializable{
 
 	private String id;
 	private String name;

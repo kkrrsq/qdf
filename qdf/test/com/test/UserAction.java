@@ -6,6 +6,7 @@ import java.util.List;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import com.qdf.annotation.Action;
+import com.qdf.annotation.CacheName;
 import com.qdf.annotation.Interceptor;
 import com.qdf.annotation.Skip;
 import com.qdf.annotation.TxLevel;
@@ -14,6 +15,8 @@ import com.qdf.db.SessionFactory;
 import com.qdf.db.SessionFactory;
 import com.qdf.db.Tx;
 import com.qdf.log.ILogger;
+import com.qdf.plugin.ehcache.CacheInterceptor;
+import com.qdf.plugin.ehcache.CacheUtil;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
 import com.qdf.util.DbUtil;
@@ -25,7 +28,8 @@ import com.test.interceptor.MyInterceptor;
 
 @Skip
 @Action(url = "/user")
-@Interceptor({ClassInterceptor.class,ClassInterceptor2.class})
+@CacheName("/user")
+@Interceptor({ClassInterceptor.class,ClassInterceptor2.class,CacheInterceptor.class})
 public class UserAction implements QdfAction {
 	
 
@@ -62,7 +66,17 @@ public class UserAction implements QdfAction {
 		response.setDataByJsonCMD(user);
 	}
 	
+	/**
+	 * cache
+	 * @param request
+	 * @param response
+	 */
 	public void list(IRequest request,IResponse response) {
+		/*List<Object> list =  CacheUtil.get("/user/list", "list");
+		if(list == null) {
+			list = SessionFactory.getSession().queryList("select * from user", null);
+			CacheUtil.put("/user/list", "list",list);
+		}*/
 		List<Object> list = SessionFactory.getSession().queryList("select * from user", null);
 		response.setDataByJsonCMD(list);
 	}

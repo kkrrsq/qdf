@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 
 import com.qdf.interceptor.QdfInterceptor;
 import com.qdf.model.ActionBean;
+import com.qdf.servlet.IRequest;
+import com.qdf.servlet.IResponse;
 
 
 
@@ -49,5 +51,13 @@ public class Invocation {
 	
 	public Class<?> getAction() {
 		return actionBean.getQdfAction();
+	}
+	
+	public IRequest getIRequest() {
+		return (IRequest) args[0];
+	}
+	
+	public IResponse getIResponse() {
+		return (IResponse) args[1];
 	}
 }

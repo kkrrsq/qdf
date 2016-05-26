@@ -25,6 +25,8 @@ public class Qdf {
 	private ActionHandle actionHandle = null;
 	
 	private Pool pool = null;
+	
+	private Plugin plugin = null;
 
 	//单例
 	private Qdf(){}
@@ -42,6 +44,7 @@ public class Qdf {
 		table = new Table();
 		config = new QdfConfig();
 		actionHandle = new ActionHandle();
+		plugin = new Plugin();
 		
 		//加载qdfConfig配置文件
 		PropertiesUtil propertiesUtil = new PropertiesUtil("qdfConfig.properties");
@@ -55,6 +58,7 @@ public class Qdf {
 		String actionPackage = propertiesUtil.getProperty("qdf.scan.action");
 		String modelPackage = propertiesUtil.getProperty("qdf.scan.model");
 		String globalInterceptor = propertiesUtil.getProperty("qdf.global.interceptors");
+		String plguins = propertiesUtil.getProperty("qdf.plugins");
 		
 		String txMehtodRegex = propertiesUtil.getProperty("qdf.tx.method");
 		int txLevel = propertiesUtil.getInt("qdf.tx.level",4);
@@ -88,9 +92,15 @@ public class Qdf {
 			InterceptorManage.me().addGlobalInterceptor(new TxByMethodRegex(txMehtodRegex, txLevel));
 		}
 		
+		if(!Strings.isNullOrEmpty(plguins)) {
+			plugin.addPlugins(plguins);
+		}
+		
 		route.scanActions();
 		
 		table.scanModel();
+		
+		plugin.initPlugins();
 		
 		LogUtil.info("qdf启动成功...");
 		
