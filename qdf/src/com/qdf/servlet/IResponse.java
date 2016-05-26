@@ -1,7 +1,7 @@
 package com.qdf.servlet;
 
+import java.io.File;
 import java.io.InputStream;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.Map;
 import java.util.Set;
 
@@ -181,4 +181,9 @@ public interface IResponse {
 	void redirect(String url);
 	
 	void forward(String url);
+	
+	void download(String path);
+	
+	void download(File file);
+	
 }

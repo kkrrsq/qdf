@@ -1,4 +1,4 @@
-package com.test;
+package com.test.model;
 
 import java.io.Serializable;
 
@@ -36,10 +36,6 @@ public class User implements Serializable{
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
-	}
-	@Override
-	public String toString() {
-		return String.format("[id:%s,name:%s,age:%s]", id,name,age);
 	}
 	
 }

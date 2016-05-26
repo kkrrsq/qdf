@@ -59,7 +59,7 @@ public class CacheInterceptor implements QdfInterceptor {
 			return cache.value();
 		} else {
 			Action action = in.getAction().getAnnotation(Action.class);
-			return action.url();
+			return action.url().startsWith("/") ? action.url() : "/"+action.url();
 		}
 	}
 	 

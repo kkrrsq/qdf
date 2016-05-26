@@ -1,5 +1,9 @@
 package com.qdf.servlet.impl;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -155,6 +159,30 @@ public class IResponseImpl implements IResponse{
 	public void forward(String url) {
 		this.dataType = Type.FORWARD;
 		this.data = url;
+	}
+
+	@Override
+	public void download(String path) {
+		download(new File(path));
+	}
+
+	@Override
+	public void download(File file) {
+		InputStream fis = null;
+		try {
+			String filename = new String(file.getName().getBytes(), "ISO8859-1");
+			
+			// 以流的形式下载文件。
+			fis = new BufferedInputStream(new FileInputStream(file));
+			
+			// 设置response的Header
+			setHeader("Content-Disposition", "attachment;filename=" + filename);
+			setHeader("Content-Length", "" + file.length());
+			setDataInputStream("application/octet-stream", fis);
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

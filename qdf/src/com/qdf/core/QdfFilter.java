@@ -40,8 +40,6 @@ public class QdfFilter implements Filter{
 		
 		String url = req.getRequestURI().substring(req.getContextPath().length());
 		
-		System.out.println(url);
-		
 		if(null != Qdf.me().getConfig().getIgnoreUrl() && ( "/".equals(url) || url.matches(Qdf.me().getConfig().getIgnoreUrl()))) {
 			LogUtil.info("跳过拦截url:{}",url);
 			filterChain.doFilter(request, response);
@@ -77,11 +75,20 @@ public class QdfFilter implements Filter{
 
 				// 下载响应特殊处理
 				if( IResponse.Type.STREAM == resType ){
-					try( InputStream inStream = iResponse.getDataInputStream(); ServletOutputStream outStream = response.getOutputStream(); ){
+					InputStream inStream = null;
+					ServletOutputStream outStream = null;
+					try{
+						inStream = iResponse.getDataInputStream(); 
+						outStream = response.getOutputStream();
 						ByteStreams.copy( inStream, outStream );
 						outStream.flush();
 					} catch (Exception e) {
 						throw new RuntimeException(e);
+					} finally {
+						if(null != outStream)
+							outStream.close();
+						if(null != inStream)
+							inStream.close();
 					}
 				} else if(IResponse.Type.FORWARD == resType) {
 					req.getRequestDispatcher(iResponse.getData()).forward(req, rep);

@@ -52,6 +52,8 @@ public class Route {
 					com.qdf.annotation.Action action = clazz.getAnnotation(com.qdf.annotation.Action.class);
 					if(null != action) {
 						String baseurl = action.url();
+						if(!baseurl.startsWith("/"))
+							baseurl = "/" + baseurl;
 						Method []methods = clazz.getMethods();
 						for (Method method : methods) {
 							if(method.getParameterTypes().length == 2 && method.getParameterTypes()[0] == IRequest.class && 
