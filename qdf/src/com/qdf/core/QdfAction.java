@@ -10,5 +10,10 @@ import com.qdf.servlet.IResponse;
  */
 public interface QdfAction {
 
+	/**
+	 * 默认的方法
+	 * @param request
+	 * @param response
+	 */
 	void execute(IRequest request,IResponse response);
 }

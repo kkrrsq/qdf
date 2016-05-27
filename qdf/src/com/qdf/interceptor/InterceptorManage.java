@@ -9,14 +9,18 @@ import com.qdf.annotation.Interceptor;
 import com.qdf.annotation.Skip;
 import com.qdf.util.JsonUtil;
 import com.qdf.util.LogUtil;
-import com.sun.swing.internal.plaf.metal.resources.metal;
 
-import sun.util.resources.cldr.az.CalendarData_az_Cyrl_AZ;
-
+/**
+ * 拦截器管理类
+ * 保存全局拦截器
+ * @author xiezq
+ *
+ */
 public class InterceptorManage {
 
 	private static final InterceptorManage _me = new InterceptorManage();
-	
+
+	//保存全局拦截器
 	private List<QdfInterceptor> globalInterceptors = new ArrayList<>();
 	
 	private InterceptorManage(){}
@@ -49,6 +53,12 @@ public class InterceptorManage {
 		this.globalInterceptors.remove(interceptor);
 	}
 	
+	/**
+	 * 获取Action中方法对应的拦截器
+	 * @param clazz action	
+	 * @param method 方法
+	 * @return 对应的拦截器数组
+	 */
 	public QdfInterceptor[] getInterceptors(Class<?> clazz,Method method) {
 		
 		List<QdfInterceptor> interceptorList = new ArrayList<>();

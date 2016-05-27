@@ -2,6 +2,11 @@ package com.qdf.db;
 
 import java.util.List;
 
+/**
+ * 数据库操作接口
+ * @author xiezq
+ *
+ */
 public interface Session {
 
 	int save(Object obj);

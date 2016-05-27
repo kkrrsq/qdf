@@ -11,6 +11,7 @@ import com.qdf.util.PropertiesUtil;
 
 /**
  * Qdf主文件
+ * 保存框架的路由、数据库映射、插件、配置、数据库连接池等信息
  * @author xiezq
  *
  */
@@ -37,7 +38,9 @@ public class Qdf {
 		return _me;
 	}
 	
-	//初始化框架
+	/**
+	 * 读取配置文件,初始化框架
+	 */
 	public void init() {
 		
 		route = new Route();
@@ -112,7 +115,9 @@ public class Qdf {
 		
 	}
 	
-	//框架销毁
+	/**
+	 * 销毁框架
+	 */
 	public void destroy(){
 		if(null != actionHandle)
 			actionHandle = null;

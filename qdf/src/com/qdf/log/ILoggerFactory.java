@@ -2,6 +2,11 @@ package com.qdf.log;
 
 import com.qdf.log.impl.Slf4jLoggerAdapter;
 
+/**
+ * 日志工厂类,获取默认的日志
+ * @author xiezq
+ *
+ */
 public class ILoggerFactory {
 
 	private static ILoggerAdapter defaultLogFactory;

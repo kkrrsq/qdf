@@ -15,6 +15,12 @@ import com.qdf.servlet.IResponse;
 import com.qdf.servlet.IResponse.Type;
 import com.qdf.util.LogUtil;
 
+/**
+ * 缓存拦截器
+ * 可以注解实现缓存action
+ * @author xiezq
+ *
+ */
 public class CacheInterceptor implements QdfInterceptor {
 
 	private static ConcurrentHashMap<String, ReentrantLock> lockMap = new ConcurrentHashMap<>();

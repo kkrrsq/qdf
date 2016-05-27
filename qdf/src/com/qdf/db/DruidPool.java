@@ -5,16 +5,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.alibaba.druid.filter.Filter;
-import com.alibaba.druid.filter.logging.Log4jFilter;
-import com.alibaba.druid.filter.logging.Slf4jLogFilter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.qdf.core.Qdf;
 
+/**
+ * druid连接池
+ * @author xiezq
+ *
+ */
 public class DruidPool implements Pool{
 
 	private DruidDataSource dataSource = null;
+	//ThreadLocal保存连接,保证每个线程得到同一个连接,用于事务处理
 	private ThreadLocal<Connection> connections = new ThreadLocal<Connection>();
 	private static final String VALIDATION_QUERY = "select 1";
 	
@@ -24,6 +27,9 @@ public class DruidPool implements Pool{
 		return _me;
 	}
 	
+	/**
+	 * 初始化druid连接池
+	 */
 	private DruidPool(){
 		dataSource = new DruidDataSource();
 		dataSource.setUrl(Qdf.me().getConfig().getDBProperty("url").toString());
@@ -40,6 +46,9 @@ public class DruidPool implements Pool{
 		dataSource.setProxyFilters( filters );
 	}
 	
+	/**
+	 * 获取连接
+	 */
 	@Override
 	public Connection getConnection() {
 		

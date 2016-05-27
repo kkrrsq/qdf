@@ -5,6 +5,11 @@ import java.util.regex.Pattern;
 import com.qdf.core.Invocation;
 import com.qdf.interceptor.QdfInterceptor;
 
+/**
+ * 声明式事务
+ * @author xiezq
+ *
+ */
 public class TxByMethodRegex implements QdfInterceptor {
 
 	private String regex;

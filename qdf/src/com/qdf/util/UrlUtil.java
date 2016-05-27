@@ -9,6 +9,11 @@ import java.util.Objects;
 public class UrlUtil {
 
 
+	/**
+	 * 解析url
+	 * @param url url
+	 * @return action名,方法名
+	 */
 	public static String[] parseUrl(String url) {
 		Objects.requireNonNull(url,"url can not be null");
 		if(url.endsWith("/"))

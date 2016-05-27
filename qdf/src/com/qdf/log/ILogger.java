@@ -1,5 +1,10 @@
 package com.qdf.log;
 
+/**
+ * 日志接口
+ * @author xiezq
+ *
+ */
 public interface ILogger {
 
 	void debug(String message);

@@ -7,6 +7,12 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
+/**
+ * 缓存帮助类
+ * 提供一系列操作缓存的方法
+ * @author xiezq
+ *
+ */
 public class CacheUtil {
 
 	private static CacheManager cacheManager;

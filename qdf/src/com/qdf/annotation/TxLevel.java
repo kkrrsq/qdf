@@ -13,5 +13,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE,ElementType.METHOD})
 public @interface TxLevel {
 
+	/**
+	 * 
+	 * @return 事务级别
+	 */
 	int value();
 }

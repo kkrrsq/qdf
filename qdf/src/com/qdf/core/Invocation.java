@@ -10,7 +10,7 @@ import com.qdf.servlet.IResponse;
 
 
 /**
- * 执行action和interceptor
+ * 递归执行action和interceptor
  * @author xiezq
  *
  */
@@ -30,6 +30,9 @@ public class Invocation {
 		this.interceptors = actionBean.getInterceptors();
 	}
 
+	/**
+	 * 递归,执行拦截器,并把自身传给拦截器,拦截器再调用invoke
+	 */
 	public void invoke() {
 		
 		if(index < interceptors.length) {

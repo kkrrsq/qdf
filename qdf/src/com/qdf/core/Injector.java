@@ -14,11 +14,10 @@ import com.qdf.util.StringUtil;
 public class Injector {
 
 	/**
-	 * 将前端传入的参数注入到bean
-	 * @param <T>
-	 * @param clazz
-	 * @param paramMap
-	 * @return javaBean
+	 * 
+	 * @param clazz 对应的类
+	 * @param paramMap 参数map
+	 * @return 对象
 	 */
 	public static <T> T injectBean(Class<T> clazz, Map<String, String> paramMap) {
 

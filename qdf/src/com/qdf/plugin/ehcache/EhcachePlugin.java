@@ -4,6 +4,11 @@ import com.qdf.plugin.QdfPlugin;
 
 import net.sf.ehcache.CacheManager;
 
+/**
+ * Ehcache缓存插件
+ * @author xiezq
+ *
+ */
 public class EhcachePlugin implements QdfPlugin {
 
 	private static CacheManager cacheManager;

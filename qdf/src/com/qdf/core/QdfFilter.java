@@ -23,6 +23,7 @@ import com.qdf.util.LogUtil;
 import com.qdf.util.UrlUtil;
 /**
  * qdf框架主过滤器
+ * 所有请求都经过该过滤器分发处理返回
  * @author xiezq
  *
  */
@@ -119,7 +120,6 @@ public class QdfFilter implements Filter{
 
 	@Override
 	public void init(FilterConfig config) {
-		
 		Qdf.me().init();
 	}
 	

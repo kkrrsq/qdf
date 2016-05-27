@@ -13,6 +13,11 @@ import com.qdf.util.JsonUtil;
 import com.qdf.util.LogUtil;
 import com.qdf.util.StringUtil;
 
+/**
+ * 数据库和javaBean映射关系
+ * @author xiezq
+ *
+ */
 public class Table {
 
 	private String modelPackage;
@@ -28,6 +33,9 @@ public class Table {
 		return pkMap;
 	}
 	
+	/**
+	 * 扫描model,并把映射关系保存到map
+	 */
 	public void scanModel() {
 		try{
 			ImmutableSet<ClassInfo> classInfos = ClassPath.from(Thread.currentThread().getContextClassLoader()).getTopLevelClasses(modelPackage);

@@ -1,15 +1,14 @@
 package com.qdf.db;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import com.qdf.annotation.TxLevel;
 import com.qdf.core.Invocation;
-import com.qdf.core.Qdf;
 import com.qdf.interceptor.QdfInterceptor;
-import com.qdf.util.LogUtil;
-import com.sun.org.apache.xml.internal.security.Init;
 
+/**
+ * 事务拦截器
+ * @author xiezq
+ *
+ */
 public class Tx implements QdfInterceptor {
 	
 	private int txLevel;

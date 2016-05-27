@@ -10,8 +10,10 @@ import java.util.Map;
  */
 public class QdfConfig {
 
+	//框架编码
 	private String ENCODING = "utf-8";
 	
+	//过滤器忽略的url正则
 	private String ignoreUrl = ".+(?i)\\.(html|css|js|json|ico|png|gif|woff|map)$";
 	
 	//保存db配置

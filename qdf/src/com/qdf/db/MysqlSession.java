@@ -24,6 +24,11 @@ import com.qdf.core.TypeConverter;
 import com.qdf.util.LogUtil;
 import com.qdf.util.StringUtil;
 
+/**
+ * 常用数据库操作方法实现
+ * @author xiezq
+ *
+ */
 public class MysqlSession implements Session {
 
 	private static final MysqlSession _me = new MysqlSession();

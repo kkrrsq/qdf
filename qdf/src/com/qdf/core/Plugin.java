@@ -5,21 +5,32 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Splitter;
-import com.qdf.interceptor.QdfInterceptor;
 import com.qdf.plugin.QdfPlugin;
 import com.qdf.util.JsonUtil;
 import com.qdf.util.LogUtil;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
-
+/**
+ * 保存插件信息
+ * @author xiezq
+ *
+ */
 public class Plugin {
 
+	//保存注册的插件
 	private Map<String, QdfPlugin> pluginMap = new HashMap();
 	
+	/**
+	 * 添加插件
+	 * @param plugin 插件
+	 */
 	public void addPlugin(QdfPlugin plugin) {
 		pluginMap.put(plugin.getClass().getName(), plugin);
 	}
 	
+	/**
+	 * 移除插件
+	 * @param plugin 插件
+	 */
 	public void removePlugin(QdfPlugin plugin) {
 		pluginMap.remove(plugin.getClass().getName());
 	}
@@ -28,6 +39,10 @@ public class Plugin {
 		return pluginMap;
 	}
 	
+	/**
+	 * 将字符串(格式:p1,p2,p3)解析后,添加到插件map保存
+	 * @param classNames
+	 */
 	public void addPlugins(String classNames) {
 		List<String> classNameList = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(classNames);
 		try {
@@ -44,7 +59,9 @@ public class Plugin {
 		}
 	}
 	
-	
+	/**
+	 * 初始化map中所有插件
+	 */
 	public void initPlugins() {
 		this.pluginMap.keySet().forEach(key -> {
 			

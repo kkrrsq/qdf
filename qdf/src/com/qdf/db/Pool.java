@@ -2,8 +2,11 @@ package com.qdf.db;
 
 import java.sql.Connection;
 
-import javax.sql.DataSource;
-
+/**
+ * 连接池接口
+ * @author xiezq
+ *
+ */
 public interface Pool {
 
 	Connection getConnection();

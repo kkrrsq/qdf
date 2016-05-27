@@ -1,14 +1,7 @@
 package com.qdf.core;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.qdf.annotation.Interceptor;
-import com.qdf.interceptor.QdfInterceptor;
 import com.qdf.model.ActionBean;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
@@ -21,6 +14,13 @@ import com.qdf.servlet.IResponse;
  */
 public class ActionHandle {
 
+	/**
+	 * 执行Action中的方法
+	 * @param actionBean ActionBean
+	 * @param methodName 方法名
+	 * @param request	IRequest
+	 * @param response	IResponse
+	 */
 	public void handle(ActionBean actionBean,String methodName,IRequest request,
 			IResponse response) {
 		try {

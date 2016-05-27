@@ -7,8 +7,18 @@ import com.qdf.core.Qdf;
 import com.qdf.db.TxRun;
 import com.qdf.util.LogUtil;
 
+/**
+ * 数据库帮助类
+ * @author xiezq
+ *
+ */
 public class DbUtil {
 
+	/**
+	 * 事务执行sql
+	 * @param txRun sql写在txRun.run()里面
+	 * @param txLevel 事务级别
+	 */
 	public static void tx(TxRun txRun,int txLevel){
 		
 		Connection conn = Qdf.me().getPool().getThreadLocalConnection();

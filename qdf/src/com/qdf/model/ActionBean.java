@@ -6,9 +6,9 @@ import com.qdf.core.QdfAction;
 import com.qdf.interceptor.QdfInterceptor;
 
 /**
- * 保存Action的信息
+ * 保存Action中方法的信息,如拦截器、url等
  * ActionBean对应QdfAction中的一个方法
- * 如:/user/add -> UserAction.add()
+ * 如:UserAction.add()方法对应一个ActionBean用于保存该方法的信息
  * @author xiezq
  *
  */

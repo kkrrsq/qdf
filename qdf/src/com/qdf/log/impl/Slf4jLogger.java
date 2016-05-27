@@ -5,6 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import com.qdf.log.ILogger;
 
+/**
+ * slf4j日志实现
+ * @author xiezq
+ *
+ */
 public class Slf4jLogger implements ILogger{
 
 	private Logger logger;

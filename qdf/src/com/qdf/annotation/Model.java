@@ -14,8 +14,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Model {
 
-	//主键名
+	/**
+	 * 
+	 * @return 主键名(默认为"id")
+	 */
 	String pk() default "id";
-	//表名
+	
+	/**
+	 * 
+	 * @return 表名
+	 */
 	String table();
 }

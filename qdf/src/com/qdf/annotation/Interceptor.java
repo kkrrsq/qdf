@@ -16,6 +16,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE,ElementType.METHOD})
 public @interface Interceptor {
 
-	//实现了qdfInterceptor接口的拦截器类
+	/**
+	 * 
+	 * @return 实现了qdfInterceptor接口的拦截器类
+	 */
 	Class<?>[] value();
 }
