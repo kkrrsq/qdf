@@ -49,6 +49,8 @@ public class Qdf {
 		//加载qdfConfig配置文件
 		PropertiesUtil propertiesUtil = new PropertiesUtil("qdfConfig.properties");
 		
+		String encoding = propertiesUtil.getProperty("qdf.encoding");
+		
 		String dbUrl = propertiesUtil.getProperty("db.url");
 		String dbUsername = propertiesUtil.getProperty("db.username");
 		String dbPassword = propertiesUtil.getProperty("db.password");
@@ -67,6 +69,10 @@ public class Qdf {
 				Strings.isNullOrEmpty(dbPassword) || Strings.isNullOrEmpty(actionPackage) ||
 				Strings.isNullOrEmpty(modelPackage) ) {
 			throw new RuntimeException("qdf初始化失败,读取配置出错,请检查配置...");
+		}
+		
+		if(!Strings.isNullOrEmpty(encoding)) {
+			config.setENCODING(encoding);
 		}
 		
 		if(!Strings.isNullOrEmpty(ignoreUrl)) {

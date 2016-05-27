@@ -33,3 +33,6 @@
 	4.com.qdf.util.Dbutil移到com.qdf.db下
 	5.IResponse新增文件下载的方法download(File file)、download(String path)
 	6.com.test下新增一系列示例代码
+
+2016年5月27日09:51:02
+	1.配置文件新增编码设置
