@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri May 27 14:04:48 CST 2016
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=C\:\\Users\\xiezq\\Desktop\\qdf_fat.jar
+manifest.mergeall=true
+manifest.mainclass=com.qdf.core.Qdf
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|qdf>~com/~test/;<po|qdf>~ehcache.xml;<po|qdf>~log4j.properties;<po|qdf>~qdfConfig.properties
+includes=
