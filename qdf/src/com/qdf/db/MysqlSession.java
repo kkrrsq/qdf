@@ -19,6 +19,7 @@ import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.ast.statement.SQLTableSource;
 import com.alibaba.druid.sql.parser.SQLParserUtils;
 import com.alibaba.druid.sql.parser.SQLStatementParser;
+import com.google.common.cache.Cache;
 import com.qdf.core.Qdf;
 import com.qdf.core.TypeConverter;
 import com.qdf.util.LogUtil;
@@ -276,26 +277,7 @@ public class MysqlSession implements Session {
 		}
 	}
 
-	public <T> List<T> queryList(String sql, Object... objects) {
-
-		SQLStatementParser parser = SQLParserUtils.createSQLStatementParser(sql, Qdf.me().getPool().getDbType());
-		SQLSelectStatement sqlStatement = parser.parseSelect();
-		SQLSelect sqlSelect = sqlStatement.getSelect();
-		SQLSelectQueryBlock queryBlock = (SQLSelectQueryBlock) sqlSelect.getQuery();
-		SQLTableSource tableSource = queryBlock.getFrom();
-		SQLExpr expr1 = ((SQLExprTableSource) tableSource).getExpr();
-		SQLIdentifierExpr identExpr = (SQLIdentifierExpr) expr1;
-		String table = identExpr.getName();
-
-		Class<?> clazz = null;
-
-		Map<Class<?>, String> map = Qdf.me().getTable().getTableMap();
-		for (Class<?> c : map.keySet()) {
-			if (map.get(c).equals(table)) {
-				clazz = c;
-				break;
-			}
-		}
+	public <T> List<T> queryList(Class<?> clazz, String sql, Object... objects) {
 
 		List<Object> list = new ArrayList<>();
 		Connection conn = null;
@@ -359,13 +341,13 @@ public class MysqlSession implements Session {
 		
 		String tableName = Qdf.me().getTable().getTableMap().get(clazz);
 		String sql = "select * from " + tableName + " limit " + ((page-1)*pageSize)+","+pageSize;;
-		return queryList(sql, new Object[]{});
+		return queryList(clazz,sql, new Object[]{});
 	}
 	
-	public <T> List<T> queryPage(String sql,int page,int pageSize) {
+	public <T> List<T> queryPage(Class<?> clazz,String sql,int page,int pageSize) {
 		
 		sql = sql + " limit " + ((page-1)*pageSize)+","+pageSize;;
-		return queryList(sql, new Object[]{});
+		return queryList(clazz,sql, new Object[]{});
 	}
 
 }

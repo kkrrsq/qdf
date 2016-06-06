@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao	{
 
 	@Override
 	public List<User> list() {
-		return SessionFactory.getSession().queryList("select * from user", new Object[]{});
+		return SessionFactory.getSession().queryList(User.class,"select * from user", new Object[]{});
 	}
 
 	@Override
