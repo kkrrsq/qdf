@@ -11,6 +11,7 @@
 		<url-pattern>/*</url-pattern> 
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping> 
   
   <welcome-file-list>
