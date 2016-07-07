@@ -43,14 +43,14 @@ public class Qdf {
 	/**
 	 * 读取配置文件,初始化框架
 	 */
-	public void init(String configImplName) {
+	public void init(String configImplName,String jdbcUrl,String user,String password) {
 
 		if (Strings.isNullOrEmpty(configImplName))
 			throw new RuntimeException("qdf初始化失败,configImpl为空...");
 		if ("properties".equals(configImplName)) {
 			config = new PropertiesConfig();
 		} else if("mysql".equals(configImplName)) {
-			config = new MysqlConfig();
+			config = new MysqlConfig(jdbcUrl, user, password);
 		} else {
 			throw new RuntimeException("qdf初始化失败,configImpl无效...");
 		}

@@ -121,7 +121,10 @@ public class QdfFilter implements Filter{
 	@Override
 	public void init(FilterConfig config) {
 		String configImplName = config.getInitParameter("configImpl");
-		Qdf.me().init(configImplName);
+		String jdbcUrl = config.getInitParameter("jdbcUrl");
+		String user = config.getInitParameter("user");
+		String password = config.getInitParameter("password");
+		Qdf.me().init(configImplName,jdbcUrl,user,password);
 	}
 	
 	@Override

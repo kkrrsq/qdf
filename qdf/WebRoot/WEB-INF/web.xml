@@ -6,10 +6,25 @@
     	<filter-name>qdfFilter</filter-name>  
     	<filter-class>com.qdf.core.QdfFilter</filter-class>
     	<init-param>
-      		<description>Config的实现方式</description>
+      		<description>Config的实现方式(properties,mysql)</description>
       		<param-name>configImpl</param-name>
-     		<param-value>properties</param-value>
+     		<param-value>mysql</param-value>
     	</init-param>  
+    	<init-param>
+		     <description>配置连接地址。</description>
+		     <param-name>jdbcUrl</param-name>
+		     <param-value>jdbc:mysql://127.0.0.1:3306/qdf</param-value>
+    	</init-param>
+    	<init-param>
+      		<description>配置用户标识。</description>
+      		<param-name>user</param-name>
+      		<param-value>root</param-value>
+    	</init-param>
+    	<init-param>
+      		<description>配置访问密码。</description>
+      		<param-name>password</param-name>
+      		<param-value>root</param-value>
+    	</init-param>
 	</filter>  
 	<filter-mapping>  
 		<filter-name>qdfFilter</filter-name>  

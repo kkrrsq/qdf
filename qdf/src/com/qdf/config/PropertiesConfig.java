@@ -17,7 +17,7 @@ public class PropertiesConfig extends AbstractConfig {
 			Entry<Object, Object> entry = it.next();
 			Object key = entry.getKey();
 			Object value = entry.getValue();
-			configMap.put(key.toString(), value.toString());
+			set(key.toString(), value.toString());
 		}
 	}
 
