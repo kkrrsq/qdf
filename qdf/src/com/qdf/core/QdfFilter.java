@@ -36,12 +36,12 @@ public class QdfFilter implements Filter{
 		HttpServletResponse rep = (HttpServletResponse) response;
 		
 		//设置编码
-		req.setCharacterEncoding(Qdf.me().getConfig().getENCODING());
-		rep.setCharacterEncoding(Qdf.me().getConfig().getENCODING());
+		req.setCharacterEncoding(Qdf.me().getConfig().get("qdf.encoding"));
+		rep.setCharacterEncoding(Qdf.me().getConfig().get("qdf.encoding"));
 		
 		String url = req.getRequestURI().substring(req.getContextPath().length());
 		
-		if(null != Qdf.me().getConfig().getIgnoreUrl() && ( "/".equals(url) || url.matches(Qdf.me().getConfig().getIgnoreUrl()))) {
+		if(null != Qdf.me().getConfig().get("qdf.ignoreUrl") && ( "/".equals(url) || url.matches(Qdf.me().getConfig().get("qdf.ignoreUrl")))) {
 			LogUtil.info("跳过拦截url:{}",url);
 			filterChain.doFilter(request, response);
 			return;
@@ -120,7 +120,8 @@ public class QdfFilter implements Filter{
 
 	@Override
 	public void init(FilterConfig config) {
-		Qdf.me().init();
+		String configImplName = config.getInitParameter("configImpl");
+		Qdf.me().init(configImplName);
 	}
 	
 	@Override

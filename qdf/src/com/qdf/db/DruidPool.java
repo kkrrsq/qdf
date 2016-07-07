@@ -32,12 +32,12 @@ public class DruidPool implements Pool{
 	 */
 	private DruidPool(){
 		dataSource = new DruidDataSource();
-		dataSource.setUrl(Qdf.me().getConfig().getDBProperty("url").toString());
-		dataSource.setUsername(Qdf.me().getConfig().getDBProperty("username").toString());
-		dataSource.setPassword(Qdf.me().getConfig().getDBProperty("password").toString());
+		dataSource.setUrl(Qdf.me().getConfig().get("db.url").toString());
+		dataSource.setUsername(Qdf.me().getConfig().get("db.username").toString());
+		dataSource.setPassword(Qdf.me().getConfig().get("db.password").toString());
 		dataSource.setInitialSize( 10 );
 		dataSource.setMinIdle( 10 );
-		dataSource.setMaxActive(Integer.parseInt(Qdf.me().getConfig().getDBProperty("maxActive").toString()));
+		dataSource.setMaxActive(Integer.parseInt(Qdf.me().getConfig().get("db.maxActive").toString()));
 		dataSource.setValidationQuery( VALIDATION_QUERY );
 		dataSource.setTestOnReturn( true );
 		dataSource.setFailFast( true );

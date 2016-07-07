@@ -4,7 +4,12 @@
   
 	<filter>  
     	<filter-name>qdfFilter</filter-name>  
-    	<filter-class>com.qdf.core.QdfFilter</filter-class>  
+    	<filter-class>com.qdf.core.QdfFilter</filter-class>
+    	<init-param>
+      		<description>Config的实现方式</description>
+      		<param-name>configImpl</param-name>
+     		<param-value>properties</param-value>
+    	</init-param>  
 	</filter>  
 	<filter-mapping>  
 		<filter-name>qdfFilter</filter-name>  

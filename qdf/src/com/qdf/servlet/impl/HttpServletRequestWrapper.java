@@ -40,7 +40,7 @@ public class HttpServletRequestWrapper extends AbstractRequest implements IReque
 		Objects.requireNonNull(request);
 	
 		this.request = request;
-		this.ENCODING = Qdf.me().getConfig().getENCODING();
+		this.ENCODING = Qdf.me().getConfig().get("qdf.encoding");
 		
 		this.uri = request.getRequestURI();
 		this.url = request.getRequestURL().toString();

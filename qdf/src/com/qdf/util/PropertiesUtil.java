@@ -40,11 +40,11 @@ public class PropertiesUtil {
 	}
 
 	public PropertiesUtil(String fileName) {
-		this(fileName, Qdf.me().getConfig().getENCODING());
+		this(fileName, "utf-8");
 	}
 
 	public PropertiesUtil(File file) {
-		this(file, Qdf.me().getConfig().getENCODING());
+		this(file,"utf-8");
 	}
 
 	public PropertiesUtil(File file, String encoding) {
