@@ -3,8 +3,6 @@ package com.qdf.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.cache.Cache;
-
 public abstract class AbstractConfig implements Config {
 
 	protected Map<String, String> configMap = new HashMap<>();

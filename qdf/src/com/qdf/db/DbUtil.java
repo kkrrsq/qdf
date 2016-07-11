@@ -3,9 +3,7 @@ package com.qdf.db;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.alibaba.fastjson.parser.deserializer.StringFieldDeserializer;
 import com.qdf.core.Qdf;
-import com.qdf.db.TxRun;
 import com.qdf.util.LogUtil;
 
 /**
