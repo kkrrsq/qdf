@@ -8,7 +8,7 @@
     	<init-param>
       		<description>Config的实现方式(properties,mysql)</description>
       		<param-name>configImpl</param-name>
-     		<param-value>mysql</param-value>
+     		<param-value>properties</param-value>
     	</init-param>  
     	<init-param>
 		     <description>配置连接地址。</description>

@@ -3,6 +3,7 @@ package com.qdf.db;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.alibaba.fastjson.parser.deserializer.StringFieldDeserializer;
 import com.qdf.core.Qdf;
 import com.qdf.db.TxRun;
 import com.qdf.util.LogUtil;
@@ -19,7 +20,7 @@ public class DbUtil {
 	 * @param txRun sql写在txRun.run()里面
 	 * @param txLevel 事务级别
 	 */
-	public static void tx(TxRun txRun,int txLevel){
+	public static void tx(String dsName,int txLevel,TxRun txRun){
 		
 		Connection conn = Qdf.me().getPool().getThreadLocalConnection();
 		if(null != conn) {
@@ -33,7 +34,7 @@ public class DbUtil {
 				throw new RuntimeException(e);
 			}
 		} else {
-			conn = Qdf.me().getPool().getConnection();
+			conn = Qdf.me().getPool().getConnection(dsName);
 			Boolean autoCommit = null;
 			try {
 				autoCommit = conn.getAutoCommit();

@@ -14,4 +14,10 @@ public interface Pool {
 	String getDbType();
 	
 	Connection getThreadLocalConnection();
+	
+	Connection getConnection(String dsName);
+	
+	String getDbType(String dsName);
+	
+	Connection getThreadLocalConnection(String dsName);
 }

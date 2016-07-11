@@ -11,11 +11,17 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE,ElementType.METHOD})
-public @interface TxLevel {
+public @interface TxConfig {
 
 	/**
 	 * 
 	 * @return 事务级别
 	 */
-	int value();
+	int level();
+	
+	
+	/**
+	 * 数据源名
+	 */
+	String dsName() default "";
 }

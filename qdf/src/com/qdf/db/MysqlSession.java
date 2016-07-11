@@ -19,6 +19,7 @@ import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.ast.statement.SQLTableSource;
 import com.alibaba.druid.sql.parser.SQLParserUtils;
 import com.alibaba.druid.sql.parser.SQLStatementParser;
+import com.google.common.base.Strings;
 import com.google.common.cache.Cache;
 import com.qdf.core.Qdf;
 import com.qdf.core.TypeConverter;
@@ -32,13 +33,12 @@ import com.qdf.util.StringUtil;
  */
 public class MysqlSession implements Session {
 
-	private static final MysqlSession _me = new MysqlSession();
+	private String dsName = "default_ds_name";
 
-	public static MysqlSession me() {
-		return _me;
-	}
-
-	private MysqlSession() {
+	public MysqlSession(String dsName) {
+		if(!Strings.isNullOrEmpty(dsName)) {
+			this.dsName = dsName;
+		}
 	}
 
 	public int save(Object obj) {
@@ -89,7 +89,7 @@ public class MysqlSession implements Session {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = Qdf.me().getPool().getConnection();
+			conn = Qdf.me().getPool().getConnection(dsName);
 			ps = conn.prepareStatement(sql);
 			int index = 1;
 			for (String key : map.keySet()) {
@@ -123,7 +123,7 @@ public class MysqlSession implements Session {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = Qdf.me().getPool().getConnection();
+			conn = Qdf.me().getPool().getConnection(dsName);
 			Object id = clazz.getMethod("get" + StringUtil.firstCharToUpperCase(keyName)).invoke(obj);
 			String sql = "delete from " + tableName + " where " + keyName + "= ?";
 			ps = conn.prepareStatement(sql);
@@ -192,7 +192,7 @@ public class MysqlSession implements Session {
 		PreparedStatement ps = null;
 
 		try {
-			conn = Qdf.me().getPool().getConnection();
+			conn = Qdf.me().getPool().getConnection(dsName);
 			ps = conn.prepareStatement(sql.toString());
 			int index = 1;
 			for (String key : map.keySet()) {
@@ -233,7 +233,7 @@ public class MysqlSession implements Session {
 		ResultSet rs = null;
 
 		try {
-			conn = Qdf.me().getPool().getConnection();
+			conn = Qdf.me().getPool().getConnection(dsName);
 			ps = conn.prepareStatement(sql);
 			ps.setObject(1, id);
 			rs = ps.executeQuery();
@@ -285,7 +285,7 @@ public class MysqlSession implements Session {
 		ResultSet rs = null;
 
 		try {
-			conn = Qdf.me().getPool().getConnection();
+			conn = Qdf.me().getPool().getConnection(dsName);
 			ps = conn.prepareStatement(sql.toString());
 			if (null != objects) {
 				for (int i = 0; i < objects.length; i++) {

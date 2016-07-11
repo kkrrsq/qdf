@@ -12,13 +12,13 @@ import com.qdf.interceptor.QdfInterceptor;
  */
 public class TxByMethodRegex implements QdfInterceptor {
 
-	private String regex;
 	private Pattern pattern;
 	private int txLevel;
+	private String dsName;
 	
-	public TxByMethodRegex(String regex,int txLevel) {
-		this.regex = regex;
+	public TxByMethodRegex(String regex,String dsName,int txLevel) {
 		this.txLevel = txLevel;
+		this.dsName = dsName;
 		this.pattern = Pattern.compile(regex);
 	}
 
@@ -27,7 +27,7 @@ public class TxByMethodRegex implements QdfInterceptor {
 	public void intercept(Invocation in) {
 		if(pattern.matcher(in.getMethod().getName()).matches()) {
 			//符合tx配置的正则,添加事务
-			DbUtil.tx(()->{in.invoke();return true;}, txLevel);
+			DbUtil.tx(dsName,txLevel,()->{in.invoke();return true;});
 		} else {
 			in.invoke();
 		}

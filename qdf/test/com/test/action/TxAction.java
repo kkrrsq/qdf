@@ -2,11 +2,14 @@ package com.test.action;
 
 import com.qdf.annotation.Action;
 import com.qdf.annotation.Interceptor;
-import com.qdf.annotation.TxLevel;
+import com.qdf.annotation.TxConfig;
 import com.qdf.core.QdfAction;
+import com.qdf.db.DbUtil;
+import com.qdf.db.SessionFactory;
 import com.qdf.db.Tx;
 import com.qdf.servlet.IRequest;
 import com.qdf.servlet.IResponse;
+import com.test.model.User;
 import com.test.service.UserService;
 import com.test.service.impl.UserServiceImpl;
 
@@ -33,7 +36,10 @@ public class TxAction implements QdfAction {
 	 * @param response
 	 */
 	public void save(IRequest request, IResponse response) {
-		us.tx();
+		User u1 = new User();
+		u1.setId("q11");
+		u1.setName("7777");
+		SessionFactory.getSession("ds1").save(u1);
 	}
 	
 	/**
@@ -42,9 +48,12 @@ public class TxAction implements QdfAction {
 	 * @param response
 	 */
 	@Interceptor(Tx.class)
-	@TxLevel(2)
+	@TxConfig(level = 2,dsName="ds1")
 	public void tx1(IRequest request, IResponse response) {
-		us.tx();
+		User u1 = new User();
+		u1.setId("q11");
+		u1.setName("7777");
+		SessionFactory.getSession("ds1").save(u1);
 	}
 	
 	
@@ -55,16 +64,16 @@ public class TxAction implements QdfAction {
 	 * @param response
 	 */
 	public void tx2(IRequest request, IResponse response) {
-		/*  dao层代码
-		    DbUtil.tx(()->{
-			User u1 = new User();
-			u1.setId("7777");
-			u1.setName("7777");
-			SessionFactory.getSession().save(u1);
-			return false;
-		} , 2);
-		*/
-		us.tx2();
+		/*  dao层代码*/
+	    DbUtil.tx("ds1",2,()->{
+		User u1 = new User();
+		u1.setId("q1");
+		u1.setName("7777");
+		SessionFactory.getSession("ds2").save(u1);
+		return true;
+		} );
+		
+		//us.tx2();
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.qdf.core;
 
+import java.util.List;
+
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.qdf.config.Config;
 import com.qdf.config.MysqlConfig;
@@ -43,13 +46,13 @@ public class Qdf {
 	/**
 	 * 读取配置文件,初始化框架
 	 */
-	public void init(String configImplName,String jdbcUrl,String user,String password) {
+	public void init(String configImplName, String jdbcUrl, String user, String password) {
 
 		if (Strings.isNullOrEmpty(configImplName))
 			throw new RuntimeException("qdf初始化失败,configImpl为空...");
 		if ("properties".equals(configImplName)) {
 			config = new PropertiesConfig();
-		} else if("mysql".equals(configImplName)) {
+		} else if ("mysql".equals(configImplName)) {
 			config = new MysqlConfig(jdbcUrl, user, password);
 		} else {
 			throw new RuntimeException("qdf初始化失败,configImpl无效...");
@@ -61,22 +64,14 @@ public class Qdf {
 		plugin = new Plugin();
 
 		// 加载qdfConfig配置文件
-		String dbUrl = config.get("db.url");
-		String dbUsername = config.get("db.username");
-		String dbPassword = config.get("db.password");
-		String dbMaxActive = config.get("db.maxActive");
-
 		String actionPackage = config.get("qdf.scan.action");
 		String modelPackage = config.get("qdf.scan.model");
 		String globalInterceptor = config.get("qdf.global.interceptors");
 		String plguins = config.get("qdf.plugins");
 
-		String txMehtodRegex = config.get("qdf.tx.method");
-		String txLevel = config.get("qdf.tx.level");
+		List<String> txList = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(config.get("qdf.tx.list"));
 
-		if (Strings.isNullOrEmpty(dbUrl) || Strings.isNullOrEmpty(dbUsername) || Strings.isNullOrEmpty(dbPassword)
-				|| Strings.isNullOrEmpty(dbMaxActive) || Strings.isNullOrEmpty(actionPackage)
-				|| Strings.isNullOrEmpty(modelPackage)) {
+		if (Strings.isNullOrEmpty(actionPackage) || Strings.isNullOrEmpty(modelPackage)) {
 			throw new RuntimeException("qdf初始化失败,读取配置出错,请检查配置...");
 		}
 
@@ -89,9 +84,16 @@ public class Qdf {
 			InterceptorManage.me().addGlobalInterceptor(globalInterceptor);
 		}
 
-		if (!Strings.isNullOrEmpty(txMehtodRegex)) {
-			InterceptorManage.me().addGlobalInterceptor(new TxByMethodRegex(txMehtodRegex, Integer.parseInt(txLevel)));
-		}
+		txList.forEach(txName -> {
+			String txMethodRegex = config.get("qdf.tx.".concat(txName).concat(".regex"));
+			String dsName = config.get("qdf.tx.".concat(txName).concat(".dsName"));
+			String txLevel = config.get("qdf.tx.".concat(txName).concat(".level"));
+			if (!Strings.isNullOrEmpty(txMethodRegex) && !Strings.isNullOrEmpty(dsName)
+					&& !Strings.isNullOrEmpty(txLevel)) {
+				InterceptorManage.me()
+						.addGlobalInterceptor(new TxByMethodRegex(txMethodRegex, dsName, Integer.parseInt(txLevel)));
+			}
+		});
 
 		if (!Strings.isNullOrEmpty(plguins)) {
 			plugin.addPlugins(plguins);

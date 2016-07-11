@@ -1,6 +1,6 @@
 package com.qdf.db;
 
-import com.qdf.annotation.TxLevel;
+import com.qdf.annotation.TxConfig;
 import com.qdf.core.Invocation;
 import com.qdf.interceptor.QdfInterceptor;
 
@@ -12,14 +12,16 @@ import com.qdf.interceptor.QdfInterceptor;
 public class Tx implements QdfInterceptor {
 	
 	private int txLevel;
+	private String dsName;
 	
 	public void init(Invocation in) {
-		TxLevel txLevel = in.getMethod().getAnnotation(TxLevel.class);
-		if(null == txLevel) {
-			txLevel = in.getAction().getAnnotation(TxLevel.class);
+		TxConfig tx =  in.getMethod().getAnnotation(TxConfig.class);
+		if(null == tx) {
+			tx = in.getAction().getAnnotation(TxConfig.class);
 		}
-		if(null != txLevel) {
-			this.txLevel = txLevel.value();
+		if(null != tx) {
+			this.txLevel = tx.level();
+			this.dsName = tx.dsName();
 		}
 	}
 
@@ -28,7 +30,7 @@ public class Tx implements QdfInterceptor {
 
 		this.init(in);
 		
-		DbUtil.tx(()->{in.invoke();return true;}, this.txLevel);
+		DbUtil.tx(this.dsName,this.txLevel,()->{in.invoke();return true;});
 	}
 
 }

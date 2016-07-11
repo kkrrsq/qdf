@@ -11,7 +11,7 @@ public class UserDaoImpl implements UserDao	{
 
 	@Override
 	public int add(User user) {
-		return SessionFactory.getSession().save(user);
+		return SessionFactory.getSession("ds1").save(user);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao	{
 
 	@Override
 	public List<User> list() {
-		return SessionFactory.getSession().queryList(User.class,"select * from user", new Object[]{});
+		return SessionFactory.getSession("ds1").queryList(User.class,"select * from user", new Object[]{});
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class UserDaoImpl implements UserDao	{
 	
 	@Override
 	public void tx2() {
-		DbUtil.tx(()->{
+		DbUtil.tx("ds1",2,()->{
 			User u1 = new User();
-			u1.setId("7777");
-			u1.setName("7777");
+			u1.setId("q1");
+			u1.setName("q1");
 			SessionFactory.getSession().save(u1);
 			return false;
-		} , 2);
+		} );
 	}
 
 }
