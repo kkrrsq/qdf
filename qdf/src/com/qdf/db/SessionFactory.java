@@ -7,8 +7,6 @@ import java.util.Map;
 import com.google.common.base.Splitter;
 import com.qdf.core.Qdf;
 
-import sun.print.resources.serviceui;
-
 /**
  * 工厂类,用于获取数据库操作的对象
  * @author xiezq

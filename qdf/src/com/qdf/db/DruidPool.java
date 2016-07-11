@@ -3,7 +3,6 @@ package com.qdf.db;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Map;
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.qdf.core.Qdf;
 
 /**

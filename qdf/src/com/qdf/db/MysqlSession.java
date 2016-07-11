@@ -10,17 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
-import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
-import com.alibaba.druid.sql.ast.statement.SQLSelect;
-import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
-import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
-import com.alibaba.druid.sql.ast.statement.SQLTableSource;
-import com.alibaba.druid.sql.parser.SQLParserUtils;
-import com.alibaba.druid.sql.parser.SQLStatementParser;
 import com.google.common.base.Strings;
-import com.google.common.cache.Cache;
 import com.qdf.core.Qdf;
 import com.qdf.core.TypeConverter;
 import com.qdf.util.LogUtil;
